@@ -1,6 +1,7 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
 
+#include <SFML/Graphics.hpp>
 #include "InputManager.h"
 #include "GameObject.h"
 #include <iostream>
@@ -9,19 +10,37 @@
 class GameManager {
    public:
     GameManager();
-    ~GameManager();
+    ~GameManager() {};
+
+    void runGame();
+
+    struct position {
+        float x;
+        float y;
+    };
 
    private:
+    sf::RenderWindow window;
+    int framerate;
+    float gamespeed;
+
+    // game classes
     InputManager inputManager;
     GameObject* player;
     std::vector<GameObject*> enemies;
 
+    // game variables
     int score;
+    float scrollSpeed;
 
-    void intializeGame();
+    // Game loop
     void updateGame();
     void renderGame();
-    void runGame();  // contians the main game loop
+
+    // Enemy spawning
+    void createEnemy_Single(position pos);
+    void createEnemy_3_Cluster(position pos);
+    void createEnemy_3_Line(position pos);
 };
 
 #endif

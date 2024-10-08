@@ -1,6 +1,9 @@
 #include <iostream>
+#include "GameManager.h"
+#include <SFML/Graphics.hpp>
 
 int main() {
-    std::cout << "Hello World!" << std::endl;
+    GameManager gameManager;
+    gameManager.runGame();
     return 0;
 }

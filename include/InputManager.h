@@ -6,7 +6,7 @@
 class InputManager {
    public:
     InputManager();
-    ~InputManager();
+    ~InputManager() {};
 
    private:
 };

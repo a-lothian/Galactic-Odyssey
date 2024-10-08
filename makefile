@@ -4,6 +4,9 @@ CXX = g++
 # Compiler flags
 CXXFLAGS = -Iinclude -std=c++17 -Wall -Wextra
 
+# SFML libraries
+SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+
 # Directories
 SRC_DIR = src
 INC_DIR = include
@@ -26,12 +29,16 @@ all: $(EXECUTABLE)
 # Link object files to create the executable
 $(EXECUTABLE): $(OBJECTS)
 	@mkdir -p $(BIN_DIR)
-	$(CXX) $(OBJECTS) -o $@
+	$(CXX) $(OBJECTS) -o $@ $(SFML_LIBS)
 
 # Compile .cpp files to .o files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(HEADERS)
 	@mkdir -p $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Run the executable
+run: $(EXECUTABLE)
+	./$(EXECUTABLE)
 
 # Clean generated files
 clean:
