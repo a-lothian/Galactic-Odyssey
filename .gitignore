@@ -1,0 +1,9 @@
+# ignore object files (.o)
+obj/
+*.o
+
+# ignore final binaries
+bin/
+build/
+
+.vscode/
