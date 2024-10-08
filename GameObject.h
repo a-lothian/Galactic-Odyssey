@@ -6,11 +6,17 @@
 
 class GameObject {
    public:
+    struct Position {
+        int x;
+        int y;
+    };
+
+    Position pos;
+
     GameObject();
     ~GameObject();
 
    private:
-    std::vector<GameObject*> children;
 };
 
 #endif
