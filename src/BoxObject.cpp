@@ -6,7 +6,7 @@ BoxObject::BoxObject(GameManager* game)  // Default Debug Constructor
 
 BoxObject::BoxObject(GameManager* game, GameManager::Position pos, float width, float height, sf::Color colour)
     : GameObject(game), width(width), height(height), colour(colour) {
-    this->pos = pos;  // Assign the inherited 'pos' from GameObject
+    this->pos = pos;
     shape.setSize(sf::Vector2f(width, height));
     shape.setPosition(pos.x - (width / 2), pos.y - (height / 2));
     shape.setFillColor(colour);
