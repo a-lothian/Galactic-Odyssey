@@ -10,6 +10,8 @@ class GameObject {
     GameObject(GameManager* parent);
     ~GameObject() {};
 
+    virtual void drawObject() const = 0;
+
     GameManager* game;
     GameManager::Position pos;
     bool render = true;

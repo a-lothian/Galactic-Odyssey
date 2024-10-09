@@ -6,6 +6,9 @@
 #include <iostream>
 #include <vector>
 
+#define X_RES 500
+#define Y_RES 800
+
 class GameObject;  // forward declaration, as GameObject needs to reference from GameManager (avoids circular dependency)
 
 class GameManager {
@@ -20,9 +23,10 @@ class GameManager {
         float y;
     };
 
-   protected:
+    sf::RenderWindow window;  // must be public as objects aren't children of GameManager
+
+   public:  // changed to test rendering in main.cpp, will be private later
     // window
-    sf::RenderWindow window;
     sf::Event event;  // to be passed to input manager (keystroke inputs)
     int framerate;
     float gamespeed;
@@ -30,7 +34,7 @@ class GameManager {
     // game classes
     InputManager inputManager;
     GameObject* player;
-    std::vector<GameObject*> enemies;
+    std::vector<GameObject*> objects;
 
     // game variables
     int score;

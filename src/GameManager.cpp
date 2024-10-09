@@ -13,6 +13,11 @@ GameManager::GameManager()
 
 void GameManager::renderGame() {
     this->window.clear();
+    for (GameObject* object : objects) {
+        if (object->render) {
+            object->drawObject();
+        }
+    }
     this->window.display();
 }
 
