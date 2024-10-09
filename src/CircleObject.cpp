@@ -22,3 +22,7 @@ void CircleObject::SetPosition(GameManager::Position newPos) {
     pos.y = newPos.y;
     shape.setPosition(pos.x - radius, pos.y - radius);
 }
+
+std::string CircleObject::toString() const {
+    return "CircleObject";
+}

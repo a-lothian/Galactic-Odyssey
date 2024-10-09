@@ -21,3 +21,8 @@ void BoxObject::SetPosition(GameManager::Position newPos) {
     pos.y = newPos.y;
     shape.setPosition(pos.x - (width / 2), pos.y - (height / 2));
 }
+
+std::string BoxObject::toString() const {
+    return "BoxObject";
+}
+
