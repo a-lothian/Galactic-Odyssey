@@ -11,6 +11,8 @@ class Player : public BoxObject {
     Player(GameManager* game);
     ~Player();
 
+    
+
     int health;
     float moveSpeed = MOVEMENT_SPEED;
 
@@ -18,6 +20,7 @@ class Player : public BoxObject {
     void moveDOWN(float gametime);
     void moveLEFT(float gametime);
     void moveRIGHT(float gametime);
+    void inputFunction(sf::Keyboard::Key key, bool isPressed);
 
     void shootWeapon();
 };

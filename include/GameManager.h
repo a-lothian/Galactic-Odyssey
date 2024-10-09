@@ -10,6 +10,7 @@
 #define Y_RES 800
 
 class GameObject;  // forward declaration, as GameObject needs to reference from GameManager (avoids circular dependency)
+class Player;
 
 class GameManager {
    public:
@@ -32,8 +33,8 @@ class GameManager {
     float gamespeed;
 
     // game classes
-    InputManager inputManager;
-    GameObject* player;
+    Player * player;
+    InputManager* inputManager;
     std::vector<GameObject*> objects;
 
     // game variables
