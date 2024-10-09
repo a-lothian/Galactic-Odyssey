@@ -13,14 +13,13 @@ class BoxObject : public GameObject {
     BoxObject(GameManager* game, GameManager::Position pos, float width, float height, sf::Color colour);  // Main Constructor
     ~BoxObject() {};
 
+    void SetPosition(GameManager::Position newPos);
+
     void drawObject() const override;
     std::string toString() const;
 
    protected:
-    GameManager* game;
-
     sf::RectangleShape shape;
-    GameManager::Position pos;
     float width;
     float height;
     sf::Color colour;

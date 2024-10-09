@@ -5,6 +5,8 @@
 #include <iostream>
 #include <vector>
 
+typedef GameManager::Position Position;
+
 class GameObject {
    public:
     GameObject(GameManager* parent);
@@ -13,7 +15,7 @@ class GameObject {
     virtual void drawObject() const = 0;
 
     GameManager* game;
-    GameManager::Position pos;
+    Position pos;
     bool render = true;
 };
 
