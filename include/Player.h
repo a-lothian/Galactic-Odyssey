@@ -4,11 +4,14 @@
 #define MOVEMENT_SPEED 10.0f
 
 #include "GameObject.h"
+#include "GameManager.h"
 
 class Player : public GameObject {
    public:
-    Player();
+    Player(GameManager* game);
     ~Player();
+
+    GameManager::Position pos;
 
     int health;
     float moveSpeed = MOVEMENT_SPEED;

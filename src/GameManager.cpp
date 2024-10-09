@@ -8,7 +8,7 @@
 
 GameManager::GameManager()
     : window(sf::VideoMode(500, 800), "Galactic Odyssey", sf::Style::Default) {
-    player = new Player();
+    player = new Player(this);
 }
 
 void GameManager::renderGame() {

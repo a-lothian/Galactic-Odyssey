@@ -1,7 +1,7 @@
 #include "Player.h"
 
-Player::Player()
-    : health(100), moveSpeed(1.0f) {
+Player::Player(GameManager* game)
+    : GameObject(game), health(100), moveSpeed(1.0f) {
     pos.x = 0;
     pos.y = 0;
 }

@@ -3,24 +3,27 @@
 
 #include <SFML/Graphics.hpp>
 #include "InputManager.h"
-#include "GameObject.h"
 #include <iostream>
 #include <vector>
+
+class GameObject;  // forward declaration, as GameObject needs to reference from GameManager (avoids circular dependency)
 
 class GameManager {
    public:
     GameManager();
     ~GameManager() {};
 
-    void runGame();
+    void runGame();  // main game loop
 
-    struct position {
+    struct Position {
         float x;
         float y;
     };
 
-   private:
+   protected:
+    // window
     sf::RenderWindow window;
+    sf::Event event;  // to be passed to input manager (keystroke inputs)
     int framerate;
     float gamespeed;
 
@@ -38,9 +41,9 @@ class GameManager {
     void renderGame();
 
     // Enemy spawning
-    void createEnemy_Single(position pos);
-    void createEnemy_3_Cluster(position pos);
-    void createEnemy_3_Line(position pos);
+    void createEnemy_Single(float x, float y);
+    void createEnemy_3_Cluster(Position pos);
+    void createEnemy_3_Line(Position pos);
 };
 
 #endif

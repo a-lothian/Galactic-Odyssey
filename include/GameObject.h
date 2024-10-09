@@ -1,22 +1,18 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
+#include "GameManager.h"
 #include <iostream>
 #include <vector>
 
 class GameObject {
    public:
-    struct Position {
-        int x;
-        int y;
-    };
+    GameObject(GameManager* parent);
+    ~GameObject() {};
 
-    Position pos;
-
-    GameObject();
-    ~GameObject();
-
-   private:
+    GameManager* game;
+    GameManager::Position pos;
+    bool render = true;
 };
 
 #endif
