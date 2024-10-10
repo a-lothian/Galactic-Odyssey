@@ -3,7 +3,7 @@
 #include "InputManager.h"
 #include "GameObject.h"
 #include "Player.h"
-#include "Enemy.h"
+#include "BasicEnemy.h"
 #include "Weapon.h"
 #include "BoxObject.h"
 
@@ -29,6 +29,9 @@ void GameManager::renderGame() {
         }
     }
     this->window.display();
+}
+
+void GameManager::createEnemy_Single(float x, float y) {
 }
 
 void GameManager::runGame() {
@@ -87,4 +90,5 @@ void GameManager::updateGame() {
     checkCollisions();
 
     // Resolve collisions
+    // TODO
 }

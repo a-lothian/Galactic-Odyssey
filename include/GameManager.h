@@ -40,6 +40,7 @@ class GameManager {
     // game variables
     int score;
     float scrollSpeed;
+    float difficulty;
 
     // Game loop
     void toString();
