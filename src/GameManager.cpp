@@ -13,7 +13,6 @@ GameManager::GameManager()
     player = new Player(this);
     objects.push_back(player);
     inputManager = new InputManager;
-    inputManager->playerReference = player;
 }
 
 void GameManager::renderGame() {
