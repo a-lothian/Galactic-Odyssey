@@ -11,7 +11,6 @@ class Weapon {
 
     std::string name;
     int damage;
-    float fireRate;
     bool shoot(); // Returns true if cooldown is over
 
    private:
