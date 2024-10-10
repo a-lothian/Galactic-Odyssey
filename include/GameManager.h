@@ -33,7 +33,7 @@ class GameManager {
     float gamespeed;
 
     // game classes
-    Player * player;
+    Player* player;
     InputManager* inputManager;
     std::vector<GameObject*> objects;
 
@@ -42,6 +42,8 @@ class GameManager {
     float scrollSpeed;
 
     // Game loop
+    void toString();
+    void checkCollisions();
     void updateGame();
     void renderGame();
 

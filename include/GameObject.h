@@ -16,8 +16,7 @@ class GameObject {
     virtual void drawObject() const = 0;
     virtual std::string toString() const = 0;
     virtual void update(float gametime) = 0;
-
-    bool checkBoundingBox(GameObject* other);
+    virtual bool isColliding(GameObject* other) = 0;
 
     GameManager* game;
     Position pos;

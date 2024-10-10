@@ -1,4 +1,5 @@
 #include "BoxObject.h"
+#include "CircleObject.h"
 
 BoxObject::BoxObject(GameManager* game)  // Default Debug Constructor
     : GameObject(game), shape(sf::Vector2f(25, 25)), width(50), height(50), colour(sf::Color::Red) {
@@ -26,3 +27,37 @@ std::string BoxObject::toString() const {
     return "BoxObject";
 }
 
+bool BoxObject::isColliding(GameObject* other) {
+    Vector2 offset = {pos.x - other->pos.x, pos.y - other->pos.y};
+    Vector2 halfsize = {width / 2, height / 2};
+
+    if (dynamic_cast<BoxObject*>(other)) {  // BoxObject -> BoxObject Collision
+        BoxObject* otherBox = static_cast<BoxObject*>(other);
+        Vector2 otherhalfsize = Vector2(otherBox->width / 2, otherBox->height / 2);
+
+        bool xcollide = std::abs(offset.x) < (halfsize.x + otherhalfsize.x);
+        bool ycollide = std::abs(offset.y) < (halfsize.y + otherhalfsize.y);
+
+        if (xcollide && ycollide) {
+            return true;
+        }
+    } else if (dynamic_cast<CircleObject*>(other))  // BoxObject -> CircleObject Collision
+    {
+        CircleObject* otherBall = static_cast<CircleObject*>(other);
+
+        Vector2 closestPoint;
+        closestPoint.x = std::max(pos.x - halfsize.x, std::min(otherBall->pos.x, pos.x + halfsize.x));
+        closestPoint.y = std::max(pos.y - halfsize.y, std::min(otherBall->pos.y, pos.y + halfsize.y));
+
+        Vector2 difference = {closestPoint.x - other->pos.x, closestPoint.y - other->pos.y};
+        float distanceSquared = difference.dot(difference);
+        float radiusSquared = otherBall->radius * otherBall->radius;
+
+        if (distanceSquared < radiusSquared) {
+            return true;
+        }
+    }
+
+    // No collision
+    return false;
+}

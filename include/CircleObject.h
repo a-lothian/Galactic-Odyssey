@@ -17,10 +17,12 @@ class CircleObject : public GameObject {
     void drawObject() const override;
     std::string toString() const override;
     void update(float gametime) override {};
+    bool isColliding(GameObject* other) override;
+
+    float radius;
 
    protected:
     sf::CircleShape shape;
-    float radius;
     sf::Color colour;
 };
 

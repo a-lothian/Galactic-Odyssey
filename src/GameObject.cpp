@@ -9,10 +9,3 @@ GameObject::GameObject(GameManager* game)
 std::string GameObject::toString() const {
     return "DefaultObject";
 }
-
-bool GameObject::checkBoundingBox(GameObject* other) {  // Fast approximation of collision
-    if (this->shape && other->shape) {
-        return this->shape->getGlobalBounds().intersects(other->shape->getGlobalBounds());
-    }
-    return false;
-}

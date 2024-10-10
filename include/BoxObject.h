@@ -17,11 +17,13 @@ class BoxObject : public GameObject {
     void drawObject() const override;
     std::string toString() const override;
     void update(float gametime) override {};
+    bool isColliding(GameObject* other) override;
+
+    float width;
+    float height;
 
    protected:
     sf::RectangleShape shape;
-    float width;
-    float height;
     sf::Color colour;
 };
 

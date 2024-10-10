@@ -16,6 +16,12 @@ GameManager::GameManager()
     inputManager->playerReference = player;
 }
 
+void GameManager::toString() {
+    for (GameObject* object : objects) {
+        std::cout << object->toString() << std::endl;
+    }
+}
+
 void GameManager::renderGame() {
     this->window.clear();
     for (GameObject* object : objects) {
@@ -45,6 +51,18 @@ void GameManager::runGame() {
     }
 }
 
+void GameManager::checkCollisions() {
+    for (u_long i = 0; i < objects.size(); i++) {
+        for (u_long j = i + 1; j < objects.size(); j++) {
+            bool isColliding = objects[i]->isColliding(objects[j]);
+
+            if (isColliding) {
+                std::cout << "Collision detected!" << std::endl;
+            }
+        }
+    }
+}
+
 void GameManager::updateGame() {
     /*
         General approach:
@@ -67,14 +85,7 @@ void GameManager::updateGame() {
 
     // Check collisions
 
-    for (u_long i = 0; i < objects.size(); i++) {
-        for (u_long j = i + 1; j < objects.size(); j++) {
-            std::cout << i << j << "\n";
-            if (objects[i]->checkBoundingBox(objects[j])) {
-                std::cout << "Collision detected!" << std::endl;
-            }
-        }
-    }
+    checkCollisions();
 
     // Resolve collisions
 }
