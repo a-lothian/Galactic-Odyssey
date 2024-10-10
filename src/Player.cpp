@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Weapon.h"
+#include "Bullet.h"
 #include "CircleObject.h"
 
 Player::Player(GameManager* game)
@@ -25,7 +26,7 @@ void Player::applyImpulse(Vector2 impulse) {
 
 void Player::shootWeapon() {
     if (currentWeapon.shoot()) {
-        CircleObject * circle = new CircleObject(game, {pos.x+12, pos.y-10}, 10, sf::Color::Green);
-        game->objects.push_back(circle);
+        Bullet * bullet = new Bullet(game, {pos.x+10, pos.y-5}, 5);
+        game->objects.push_back(bullet);
     }
 }
