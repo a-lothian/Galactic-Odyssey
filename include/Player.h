@@ -19,12 +19,6 @@ class Player : public BoxObject {
     void update(float gametime);
     void applyImpulse(Vector2 impulse);
 
-    void moveUP(float gametime);
-    void moveDOWN(float gametime);
-    void moveLEFT(float gametime);
-    void moveRIGHT(float gametime);
-    void inputFunction(sf::Keyboard::Key key, bool isPressed);
-
     void shootWeapon();
 };
 #endif

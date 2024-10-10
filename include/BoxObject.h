@@ -16,6 +16,7 @@ class BoxObject : public GameObject {
     void SetPosition(GameManager::Position newPos) override;
     void drawObject() const override;
     std::string toString() const override;
+    void update(float gametime) override {};
 
    protected:
     sf::RectangleShape shape;

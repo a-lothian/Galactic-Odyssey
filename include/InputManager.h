@@ -18,8 +18,7 @@ class InputManager {
 
     Vector2 Direction;
 
-    void inputFunction();
-    void clearInput();
+    void CheckInputs();
 
    private:
 };

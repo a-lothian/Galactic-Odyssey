@@ -39,9 +39,6 @@ void GameManager::runGame() {
             }
         }
 
-        // Handle input
-        inputManager->inputFunction();
-
         // Update and render game
         updateGame();
         renderGame();
@@ -49,7 +46,35 @@ void GameManager::runGame() {
 }
 
 void GameManager::updateGame() {
-    // Pass Vector for impulse instead of if-else
-    player->applyImpulse(inputManager->Direction);
-    player->update(1);
+    /*
+        General approach:
+        1. Check inputs
+        2. Do events (spawning stuff, AI logic, ect)
+        3. check collisions
+        4. resolve collisions
+    */
+
+    // Handle input
+    inputManager->CheckInputs();
+
+    // Do events
+
+    player->applyImpulse(inputManager->Direction);  // Move player
+
+    for (u_long i = 0; i < objects.size(); i++) {  // simulate all objects 1 frame
+        objects[i]->update(1);
+    }
+
+    // Check collisions
+
+    for (u_long i = 0; i < objects.size(); i++) {
+        for (u_long j = i + 1; j < objects.size(); j++) {
+            std::cout << i << j << "\n";
+            if (objects[i]->checkBoundingBox(objects[j])) {
+                std::cout << "Collision detected!" << std::endl;
+            }
+        }
+    }
+
+    // Resolve collisions
 }

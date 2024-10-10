@@ -14,11 +14,15 @@ class GameObject {
 
     virtual void SetPosition(Position newPos) = 0;
     virtual void drawObject() const = 0;
-    virtual std::string toString() const;
+    virtual std::string toString() const = 0;
+    virtual void update(float gametime) = 0;
+
+    bool checkBoundingBox(GameObject* other);
 
     GameManager* game;
     Position pos;
     bool render = true;
+    sf::Shape* shape;
 };
 
 #endif

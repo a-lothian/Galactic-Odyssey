@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "vector"
 
-void InputManager::inputFunction() {
+void InputManager::CheckInputs() {
     // NOTE: the origin is top left with Y increasing downwards, so up is negative.
     // Reset direction
     Direction.x = 0;
