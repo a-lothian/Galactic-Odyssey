@@ -2,7 +2,7 @@
 #include "CircleObject.h"
 
 BoxObject::BoxObject(GameManager* game)  // Default Debug Constructor
-    : GameObject(game), shape(sf::Vector2f(25, 25)), width(50), height(50), colour(sf::Color::Red) {
+    : GameObject(game), width(50), height(50), shape(sf::Vector2f(25, 25)), colour(sf::Color::Red) {
 }
 
 BoxObject::BoxObject(GameManager* game, GameManager::Position pos, float width, float height, sf::Color colour)

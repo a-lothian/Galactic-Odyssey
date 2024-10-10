@@ -26,8 +26,8 @@ void Player::applyImpulse(Vector2 impulse) {
 
 void Player::shootWeapon() {
     // Creates bullet object if cooldown in weapon class is over
-    if (currentWeapon.shoot()) { 
-        Bullet * bullet = new Bullet(game, {pos.x+10, pos.y-3}, 5, sf::Color::White);
+    if (currentWeapon.shoot()) {
+        Bullet* bullet = new Bullet(game, {pos.x + 10, pos.y - 3}, 5, 15, 0, 1, sf::Color::White);
         game->objects.push_back(bullet);
     }
 }
