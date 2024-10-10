@@ -5,9 +5,12 @@
 #include <SFML/Graphics.hpp>
 #include "vector2.h"
 
+class Player; // Ok had to add forward declaration back in
+
 class InputManager {
    public:
     InputManager() {};
+    InputManager(Player* p) : player(p) {}
     ~InputManager() {};
 
     Vector2 Direction;
@@ -15,7 +18,8 @@ class InputManager {
     void CheckInputs();
 
    private:
-   bool up, down, left, right;
+    Player* player;
+    bool up, down, left, right, space;
 };
 
 #endif

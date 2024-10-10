@@ -12,7 +12,7 @@ GameManager::GameManager()
     window.setKeyRepeatEnabled(true);
     player = new Player(this);
     objects.push_back(player);
-    inputManager = new InputManager;
+    inputManager = new InputManager(player);
 }
 
 void GameManager::toString() {

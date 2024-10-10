@@ -1,10 +1,10 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
-#include "GameObject.h"
 #include "string"
+#include <SFML/Graphics.hpp>
 
-class Weapon : public GameObject {
+class Weapon {
    public:
     Weapon();
     ~Weapon();
@@ -12,10 +12,12 @@ class Weapon : public GameObject {
     std::string name;
     int damage;
     float fireRate;
+    bool shoot(); // Returns true if cooldown is over
 
    private:
+    sf::Clock clock;
+    sf::Time elapsed;
     float cooldown;
 
-    void shoot();
 };
 #endif

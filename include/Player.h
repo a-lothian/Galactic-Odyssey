@@ -3,6 +3,7 @@
 
 #include "BoxObject.h"
 #include "GameManager.h"
+#include "Weapon.h"
 #include "vector2.h"
 
 class Player : public BoxObject {
@@ -14,6 +15,8 @@ class Player : public BoxObject {
     float impulseStrength;
     float mass;
     float dampening;
+
+    Weapon currentWeapon;
     Vector2 velocity;
 
     void update(float gametime);
