@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player(GameManager* game)
-    : BoxObject(game), health(100), impulseStrength(2.5f), mass(2), dampening(0.95f) {
+    : BoxObject(game), health(100), impulseStrength(2.5f), mass(2), dampening(0.9f) {
     pos.x = 0;
     pos.y = 0;
 }
