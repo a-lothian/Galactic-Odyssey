@@ -5,25 +5,20 @@ InputManager::InputManager() {
 }
 
 void InputManager::inputFunction(sf::Keyboard::Key key, bool isPressed) {
-    if (isPressed == true) { // When keystrokes are recognised via events, booleans change accordingly
-        if (key == sf::Keyboard::Up) {
-            up = true;
-        } if (key == sf::Keyboard::Down) {
-            down = true;
-        } if (key == sf::Keyboard::Left) {
-            left = true;
-        } if (key == sf::Keyboard::Right) {
-            right = true;
-        }
-    }     if (isPressed == false) {
-        if (key == sf::Keyboard::Up) {
-            up = false;
-        } if (key == sf::Keyboard::Down) {
-            down = false;
-        } if (key == sf::Keyboard::Left) {
-            left = false;
-        } if (key == sf::Keyboard::Right) {
-            right = false;
-        }
-}
+    switch (key) {  // When keystrokes are recognised via events, booleans change accordingly
+    case sf::Keyboard::Up:
+        up = isPressed;
+        break;
+    case sf::Keyboard::Down:
+        down = isPressed;
+        break;
+    case sf::Keyboard::Left:
+        left = isPressed;
+        break;
+    case sf::Keyboard::Right:
+        right = isPressed;
+        break;
+    default:
+        break;
+    }
 }
