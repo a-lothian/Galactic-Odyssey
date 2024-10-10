@@ -36,9 +36,11 @@ void GameManager::runGame() {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
-            } if (event.type == sf::Event::KeyPressed) { // Accessing InputManager 
+            }
+            if (event.type == sf::Event::KeyPressed) {  // Accessing InputManager
                 inputManager->inputFunction(event.key.code, true);
-            } if (event.type == sf::Event::KeyReleased) {
+            }
+            if (event.type == sf::Event::KeyReleased) {
                 inputManager->inputFunction(event.key.code, false);
             }
         }
@@ -48,17 +50,18 @@ void GameManager::runGame() {
 }
 
 void GameManager::updateGame() {
-
     // Function should call player movement methods
 
     if (inputManager->up) {
         player->moveUP(1);
-    } if (inputManager->down) {
+    }
+    if (inputManager->down) {
         player->moveDOWN(1);
-    } if (inputManager->left) {
+    }
+    if (inputManager->left) {
         player->moveLEFT(1);
-    } if (inputManager->right) {
+    }
+    if (inputManager->right) {
         player->moveRIGHT(1);
     }
 }
-

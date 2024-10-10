@@ -1,9 +1,6 @@
 #include "InputManager.h"
 #include "Player.h"
 
-InputManager::InputManager() {
-}
-
 void InputManager::inputFunction(sf::Keyboard::Key key, bool isPressed) {
     switch (key) {  // When keystrokes are recognised via events, booleans change accordingly
     case sf::Keyboard::Up:
