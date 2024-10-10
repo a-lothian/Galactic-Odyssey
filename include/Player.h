@@ -1,20 +1,23 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#define MOVEMENT_SPEED 10.0f
-
 #include "BoxObject.h"
 #include "GameManager.h"
+#include "vector2.h"
 
 class Player : public BoxObject {
    public:
     Player(GameManager* game);
     ~Player();
 
-    
-
     int health;
-    float moveSpeed = MOVEMENT_SPEED;
+    float impulseStrength;
+    float mass;
+    float dampening;
+    Vector2 velocity;
+
+    void update(float gametime);
+    void applyImpulse(Vector2 impulse);
 
     void moveUP(float gametime);
     void moveDOWN(float gametime);

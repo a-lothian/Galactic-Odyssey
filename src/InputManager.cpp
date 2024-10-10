@@ -1,21 +1,31 @@
 #include "InputManager.h"
 #include "Player.h"
+#include "vector"
 
-void InputManager::inputFunction(sf::Keyboard::Key key, bool isPressed) {
-    switch (key) {  // When keystrokes are recognised via events, booleans change accordingly
-    case sf::Keyboard::Up:
-        up = isPressed;
-        break;
-    case sf::Keyboard::Down:
-        down = isPressed;
-        break;
-    case sf::Keyboard::Left:
-        left = isPressed;
-        break;
-    case sf::Keyboard::Right:
-        right = isPressed;
-        break;
-    default:
-        break;
+void InputManager::inputFunction() {
+    // NOTE: the origin is top left with Y increasing downwards, so up is negative.
+    // Reset direction
+    Direction.x = 0;
+    Direction.y = 0;
+
+    // Check if the keys are currently pressed
+    up = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+    down = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+    left = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+    right = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+
+    if (up) {
+        Direction.y -= 1;
     }
+    if (down) {
+        Direction.y += 1;
+    }
+    if (left) {
+        Direction.x -= 1;
+    }
+    if (right) {
+        Direction.x += 1;
+    }
+
+    Direction = Direction.normalize();  // strafing shouldn't be faster
 }

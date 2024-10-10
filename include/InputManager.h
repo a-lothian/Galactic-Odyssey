@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "vector2.h"
 
 class Player;
 
@@ -11,18 +12,14 @@ class InputManager {
     InputManager() {};
     ~InputManager() {};
 
-    struct Direction {
-        float dx = 0;
-        float dy = 0;
-    };
-
     Player* playerReference;
 
     bool up, down, left, right;
 
-    Direction Direction;
+    Vector2 Direction;
 
-    void inputFunction(sf::Keyboard::Key key, bool isPressed);
+    void inputFunction();
+    void clearInput();
 
    private:
 };

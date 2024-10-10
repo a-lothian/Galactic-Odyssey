@@ -1,31 +1,23 @@
 #include "Player.h"
 
 Player::Player(GameManager* game)
-    : BoxObject(game), health(100), moveSpeed(15.0f) {
+    : BoxObject(game), health(100), impulseStrength(2.5f), mass(2), dampening(0.95f) {
     pos.x = 0;
     pos.y = 0;
 }
 
-// Functions govern player movement
+// Functions govern player movement, using physics
+void Player::update(float gametime) {
+    // Dampen Movement
+    velocity.x *= dampening;
+    velocity.y *= dampening;
 
-void Player::moveUP(float gametime) {
-    pos.y -= moveSpeed * gametime;
+    pos.x += velocity.x * gametime;
+    pos.y += velocity.y * gametime;
     shape.setPosition({pos.x, pos.y});
 }
 
-void Player::moveDOWN(float gametime) {
-    pos.y += moveSpeed * gametime;
-    shape.setPosition({pos.x, pos.y});
+void Player::applyImpulse(Vector2 impulse) {
+    velocity.x += (impulse.x * impulseStrength) / mass;
+    velocity.y += (impulse.y * impulseStrength) / mass;
 }
-
-void Player::moveLEFT(float gametime) {
-    pos.x -= moveSpeed * gametime;
-    shape.setPosition({pos.x, pos.y});
-}
-
-void Player::moveRIGHT(float gametime) {
-    pos.x += moveSpeed * gametime;
-    shape.setPosition({pos.x, pos.y});
-}
-
-

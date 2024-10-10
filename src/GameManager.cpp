@@ -9,6 +9,7 @@
 
 GameManager::GameManager()
     : window(sf::VideoMode(500, 800), "Galactic Odyssey", sf::Style::Default) {
+    window.setKeyRepeatEnabled(true);
     player = new Player(this);
     objects.push_back(player);
     inputManager = new InputManager;
@@ -31,37 +32,24 @@ void GameManager::runGame() {
     window.setFramerateLimit(framerate);
 
     while (window.isOpen()) {
-        window.setFramerateLimit(framerate);
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-            if (event.type == sf::Event::KeyPressed) {  // Accessing InputManager
-                inputManager->inputFunction(event.key.code, true);
-            }
-            if (event.type == sf::Event::KeyReleased) {
-                inputManager->inputFunction(event.key.code, false);
-            }
         }
+
+        // Handle input
+        inputManager->inputFunction();
+
+        // Update and render game
         updateGame();
         renderGame();
     }
 }
 
 void GameManager::updateGame() {
-    // Function should call player movement methods
-
-    if (inputManager->up) {
-        player->moveUP(1);
-    }
-    if (inputManager->down) {
-        player->moveDOWN(1);
-    }
-    if (inputManager->left) {
-        player->moveLEFT(1);
-    }
-    if (inputManager->right) {
-        player->moveRIGHT(1);
-    }
+    // Pass Vector for impulse instead of if-else
+    player->applyImpulse(inputManager->Direction);
+    player->update(1);
 }
