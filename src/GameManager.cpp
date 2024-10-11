@@ -56,7 +56,7 @@ void GameManager::runGame() {
 void GameManager::HandleCollisions(float gametime, int substeps) {
     float sub_dt = gametime / substeps;
 
-    for (int s = 0; s < substeps; s++) {
+    for (size_t s = 0; s < substeps; s++) {
         for (u_long i = 0; i < objects.size(); i++) {
             objects[i]->update(sub_dt);
         }
@@ -86,7 +86,10 @@ void GameManager::updateGame() {
 
     player->applyImpulse(inputManager->Direction);  // Move player
 
+    for (u_long i = 0; i < objects.size(); i++) {  // simulate all objects 1 frame
+    }
+
     // Check collisions + resolve collisions
 
-    HandleCollisions(1, 8);  // 1 frame of simulation, 8 substeps
+    HandleCollisions(1, 8);  // 1 frame of
 }

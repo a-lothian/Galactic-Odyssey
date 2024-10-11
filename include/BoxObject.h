@@ -19,7 +19,7 @@ class BoxObject : public GameObject {
     void update(float gametime) override;
 
     bool isColliding(GameObject* other) override;
-    void resolveCollision(GameObject* other) override {};
+    void resolveCollision(GameObject* other) override;
 
     float width;
     float height;
