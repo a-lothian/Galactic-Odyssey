@@ -23,7 +23,6 @@ class GameManager {
 
    public:  // changed to test rendering in main.cpp, will be private later
     // window
-    sf::Event event;  // to be passed to input manager (keystroke inputs)
     int framerate;
     float gamespeed;
 
