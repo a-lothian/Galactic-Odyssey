@@ -19,11 +19,6 @@ class GameManager {
 
     void runGame();  // main game loop
 
-    struct Position {
-        float x;
-        float y;
-    };
-
     sf::RenderWindow window;  // must be public as objects aren't children of GameManager
 
    public:  // changed to test rendering in main.cpp, will be private later
@@ -44,14 +39,14 @@ class GameManager {
 
     // Game loop
     void toString();
-    void checkCollisions();
+    void HandleCollisions(float gametime, int substeps);
     void updateGame();
     void renderGame();
 
     // Enemy spawning
     void createEnemy_Single(float x, float y);
-    void createEnemy_3_Cluster(Position pos);
-    void createEnemy_3_Line(Position pos);
+    void createEnemy_3_Cluster(Vector2 pos);
+    void createEnemy_3_Line(Vector2 pos);
 };
 
 #endif

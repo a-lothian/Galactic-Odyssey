@@ -4,7 +4,7 @@
 #include "CircleObject.h"
 
 Player::Player(GameManager* game)
-    : BoxObject(game), health(100), impulseStrength(2.5f), mass(2), dampening(0.9f) {
+    : BoxObject(game), health(100), impulseStrength(5.0f), mass(4), dampening(0.99f) {
     pos.y = 0;
 }
 
@@ -16,7 +16,7 @@ void Player::update(float gametime) {
 
     pos.x += velocity.x * gametime;
     pos.y += velocity.y * gametime;
-    shape.setPosition({pos.x, pos.y});
+    shape.setPosition({pos.x - (width / 2), pos.y - (height / 2)});
 }
 
 void Player::applyImpulse(Vector2 impulse) {

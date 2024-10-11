@@ -3,7 +3,7 @@
 #include <iostream>
 
 GameObject::GameObject(GameManager* game)
-    : game(game), pos({0, 0}), render(true), shape(nullptr) {
+    : game(game), pos({0, 0}), render(true), velocity({0, 0}), mass(1), shape(nullptr) {
 }
 
 std::string GameObject::toString() const {

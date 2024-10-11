@@ -9,15 +9,17 @@
 
 class BoxObject : public GameObject {
    public:
-    BoxObject(GameManager* game);                                                                          // Debug Constructor
-    BoxObject(GameManager* game, GameManager::Position pos, float width, float height, sf::Color colour);  // Main Constructor
+    BoxObject(GameManager* game);                                                            // Debug Constructor
+    BoxObject(GameManager* game, Vector2 pos, float width, float height, sf::Color colour);  // Main Constructor
     ~BoxObject() {};
 
-    void SetPosition(GameManager::Position newPos) override;
+    void SetPosition(Vector2 newPos) override;
     void drawObject() const override;
     std::string toString() const override;
-    void update(float gametime) override {};
+    void update(float gametime) override;
+
     bool isColliding(GameObject* other) override;
+    void resolveCollision(GameObject* other) override;
 
     float width;
     float height;

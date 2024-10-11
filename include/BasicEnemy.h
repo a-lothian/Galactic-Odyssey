@@ -8,8 +8,8 @@
 
 class BasicEnemy : public BoxObject {
    public:
-    BasicEnemy(GameManager* game, GameManager::Position pos);
-    ~BasicEnemy();
+    BasicEnemy(GameManager* game, Vector2 pos);
+    ~BasicEnemy() {};
 
     int health;
     float speed;

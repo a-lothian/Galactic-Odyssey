@@ -9,15 +9,17 @@
 
 class CircleObject : public GameObject {
    public:
-    CircleObject(GameManager* game);                                                             // Debug Constructor
-    CircleObject(GameManager* game, GameManager::Position pos, float radius, sf::Color colour);  // Main Constructor
+    CircleObject(GameManager* game);                                               // Debug Constructor
+    CircleObject(GameManager* game, Vector2 pos, float radius, sf::Color colour);  // Main Constructor
     ~CircleObject() {};
 
-    void SetPosition(GameManager::Position newPos) override;
+    void SetPosition(Vector2 newPos) override;
     void drawObject() const override;
     std::string toString() const override;
-    void update(float gametime) override {};
+    void update(float gametime) override;
+
     bool isColliding(GameObject* other) override;
+    void resolveCollision(GameObject* other) override;
 
     float radius;
 
