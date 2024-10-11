@@ -13,8 +13,21 @@ BoxObject::BoxObject(GameManager* game, Vector2 pos, float width, float height, 
     shape.setFillColor(colour);
 }
 
+void BoxObject::initTexture(std::string filePath)   {
+    if (!this->texture.loadFromFile(filePath))  {
+        std::cout << "Error loading file." << std::endl;
+    }
+}
+
+void BoxObject::initSprite()    {
+    this->sprite.setTexture(this->texture);
+    this->sprite.scale(0.09f,0.09f);
+    this->sprite.setOrigin(this->sprite.getGlobalBounds().width * 4, this->sprite.getGlobalBounds().height * 4);
+}
+
 void BoxObject::drawObject() const {
     game->window.draw(shape);
+    game->window.draw(this->sprite);
 }
 
 void BoxObject::SetPosition(Vector2 newPos) {

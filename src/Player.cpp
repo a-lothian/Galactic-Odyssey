@@ -6,6 +6,8 @@
 Player::Player(GameManager* game)
     : BoxObject(game), health(100), impulseStrength(5.0f), mass(4), dampening(0.99f) {
     pos.y = 0;
+    initTexture("assets/spaceship.png");
+    initSprite();
 }
 
 // Functions govern player movement, using physics
@@ -17,6 +19,7 @@ void Player::update(float gametime) {
     pos.x += velocity.x * gametime;
     pos.y += velocity.y * gametime;
     shape.setPosition({pos.x - (width / 2), pos.y - (height / 2)});
+    sprite.setPosition({pos.x - (width / 2), pos.y - (height / 2)});
 }
 
 void Player::applyImpulse(Vector2 impulse) {
