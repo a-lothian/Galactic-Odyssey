@@ -8,7 +8,7 @@
 #include "BoxObject.h"
 
 GameManager::GameManager()
-    : window(sf::VideoMode(500, 800), "Galactic Odyssey", sf::Style::Default) {
+    : window(sf::VideoMode(500, 800), "Galactic Odyssey", sf::Style::Titlebar | sf::Style::Close) {
     window.setKeyRepeatEnabled(true);
     player = new Player(this);
     objects.push_back(player);

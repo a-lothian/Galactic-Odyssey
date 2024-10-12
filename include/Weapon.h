@@ -11,12 +11,27 @@ class Weapon {
 
     std::string name;
     int damage;
-    bool shoot(); // Returns true if cooldown is over
+    bool shootCooldownOver(); // Returns true if cooldown is over
+
+    enum weaponType { // General powerup ideas
+        SINGLE,
+        DOUBLE,
+        TRIPLE,
+        RICOCHET
+    };
+
+    weaponType getPowerup();
+
+    void setPowerup(Weapon::weaponType newPowerup);
 
    private:
     sf::Clock clock;
     sf::Time elapsed;
     float cooldown;
+
+    enum weaponType powerup;
+    
+
 
 };
 #endif

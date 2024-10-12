@@ -29,8 +29,31 @@ void Player::applyImpulse(Vector2 impulse) {
 
 void Player::shootWeapon() {
     // Creates bullet object if cooldown in weapon class is over
-    if (currentWeapon.shoot()) {
-        Bullet* bullet = new Bullet(game, {pos.x + 10, pos.y - 3}, 5, 15, 0, 1, sf::Color::White);
-        game->objects.push_back(bullet);
+    if (currentWeapon.shootCooldownOver()) {
+        switch (currentWeapon.getPowerup()) {
+            // SINGLE, DOUBLE etc refers to the powerup being used when shooting
+            // This can be refactored into a function after powerup ideas are sorted out
+            case Weapon::SINGLE: {
+             Bullet* bullet = new Bullet(game, {pos.x + 10, pos.y - 3}, 5, 15, 0, 1, sf::Color::White);
+             game->objects.push_back(bullet);
+             break;
+            }
+            case Weapon::DOUBLE: {
+             Bullet* bullet = new Bullet(game, {pos.x + 10, pos.y - 3}, 5, 15, 0, 1, sf::Color::White);
+             game->objects.push_back(bullet);
+             Bullet* bullet2 = new Bullet(game, {pos.x + 30, pos.y - 3}, 5, 15, 0, 1, sf::Color::White);
+             game->objects.push_back(bullet2);
+             break;
+            }
+            case Weapon::TRIPLE: {
+             // Triple powerup code
+             break;
+            }
+            case Weapon::RICOCHET: {
+             // Ricochet powerup code
+             break;
+            }
+        }
+        
     }
 }
