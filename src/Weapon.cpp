@@ -3,11 +3,12 @@
 
 Weapon::Weapon() {
     cooldown = 0.125f; 
+    powerup = SINGLE;
 }
 
 Weapon::~Weapon() {}
 
-bool Weapon::shoot() {
+bool Weapon::shootCooldownOver() {
 
     // Weapon cooldown logic
 
@@ -20,3 +21,12 @@ bool Weapon::shoot() {
 
     return false;
 }
+
+Weapon::weaponType Weapon::getPowerup() {
+    return powerup;
+}
+
+void Weapon::setPowerup(Weapon::weaponType newPowerup) {
+    powerup = newPowerup;
+}
+
