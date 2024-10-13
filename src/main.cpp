@@ -10,6 +10,10 @@
 int main() {
     GameManager gameManager;
     BoxObject box(&gameManager, {250, 500}, 100, 100, sf::Color::Red);   // red box in middle of screen
+    box.initTexture("assets/enemy.png");
+    box.initSprite();
+    box.sprite.scale(8.f, 8.f);
+    box.sprite.setOrigin(110, 110);
     CircleObject circle(&gameManager, {250, 300}, 50, sf::Color::Blue);  // blue circle in middle of screen
     gameManager.objects.push_back(&box);
     gameManager.objects.push_back(&circle);

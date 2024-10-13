@@ -26,6 +26,12 @@ class GameObject {
 
     float mass;
     sf::Shape* shape;
+
+    sf::Sprite sprite;
+    sf::Texture texture;
+
+    void initTexture(std::string filePath);
+    void initSprite();
 };
 
 #endif
