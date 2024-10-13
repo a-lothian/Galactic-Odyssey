@@ -28,6 +28,10 @@ class GameManager {
     int framerate;
     float gamespeed;
 
+    sf::Texture backgroundTexture;  // Background texture
+    sf::Sprite backgroundSprite;  // Background sprite
+    void initBackgroud();  // Initializes background
+
     // game classes
     Player* player;
     InputManager* inputManager;

@@ -13,8 +13,17 @@ GameManager::GameManager()
     player = new Player(this);
     objects.push_back(player);
     inputManager = new InputManager(player);
+    initBackgroud();
 }
 
+void GameManager::initBackgroud() {
+    if (!this->backgroundTexture.loadFromFile("assets/background.jpg")) {
+        std::cout << "Error loading file." << std::endl;
+    }
+    this->backgroundTexture.setRepeated(true);
+    this->backgroundSprite.setTexture(this->backgroundTexture);
+    this->backgroundSprite.setOrigin(960, 500);
+}
 void GameManager::toString() {
     for (GameObject* object : objects) {
         std::cout << object->toString() << std::endl;
@@ -23,12 +32,14 @@ void GameManager::toString() {
 
 void GameManager::renderGame() {
     this->window.clear();
+    this->window.draw(this->backgroundSprite);
     for (GameObject* object : objects) {
         if (object->render) {
             object->drawObject();
         }
     }
     this->window.display();
+    this->backgroundSprite.move(0, 0.5f);
 }
 
 void GameManager::createEnemy_Single(float x, float y) {
