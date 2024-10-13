@@ -20,6 +20,7 @@ int main() {
     circle.dynamic = true;
     gameManager.objects.push_back(&box);
     gameManager.objects.push_back(&circle);
+    gameManager.loadSave();
     gameManager.runGame();
     return 0;
 }

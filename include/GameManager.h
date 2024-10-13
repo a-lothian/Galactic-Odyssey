@@ -53,6 +53,10 @@ class GameManager {
     void createEnemy_Single(float x, float y);
     void createEnemy_3_Cluster(Vector2 pos);
     void createEnemy_3_Line(Vector2 pos);
+
+    // Saving and loading
+    void saveGame();
+    void loadSave();
 };
 
 #endif

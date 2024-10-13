@@ -6,6 +6,8 @@
 #include "BasicEnemy.h"
 #include "Weapon.h"
 #include "BoxObject.h"
+#include <fstream>
+#include <string>
 
 GameManager::GameManager()
     : window(sf::VideoMode(500, 800), "Galactic Odyssey", sf::Style::Titlebar | sf::Style::Close) {
@@ -56,6 +58,7 @@ void GameManager::runGame() {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
+                saveGame();
                 window.close();
             }
         }
@@ -63,6 +66,35 @@ void GameManager::runGame() {
         // Update and render game
         updateGame();
         renderGame();
+    }
+}
+
+void GameManager::saveGame() {
+    std::ofstream user_save;
+    user_save.open("saves/user_save");
+    if (!user_save.is_open()) {
+        std::cerr << "The saves directory could not be accessed. Game failed to save. \n";
+    } else {
+        // Will store the name of the player (assuming we ask for name at the start) and their score
+        user_save << "score=" << score << std::endl;
+        // user_save << "name=" << name << std::endl;
+        user_save.close();
+    }
+}
+
+void GameManager::loadSave() {
+    std::ifstream user_load;
+    user_load.open("saves/user_save");
+    if (!user_load.is_open()) {
+        std::cout << "No save detected. \n";
+        score = 0; // If there is no save, sets score to 0
+    } else {
+        // Loads player score
+        std::string score_str;
+        user_load >> score_str;
+        score_str = score_str.substr(6); // Removing the "score=" part from the line
+        score = std::stoi(score_str);
+        user_load.close();
     }
 }
 
@@ -106,3 +138,6 @@ void GameManager::updateGame() {
 
     HandleCollisions(1, 8);  // 1 frame of
 }
+
+
+
