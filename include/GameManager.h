@@ -11,6 +11,7 @@
 
 class GameObject;  // forward declaration, as GameObject needs to reference from GameManager (avoids circular dependency)
 class Player;
+class BasicEnemy;
 
 class GameManager {
    public:
@@ -31,6 +32,7 @@ class GameManager {
     Player* player;
     InputManager* inputManager;
     std::vector<GameObject*> objects;
+    BasicEnemy* enemy;
 
     // game variables
     int score;

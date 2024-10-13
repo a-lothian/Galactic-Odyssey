@@ -32,6 +32,8 @@ void GameManager::renderGame() {
 }
 
 void GameManager::createEnemy_Single(float x, float y) {
+    enemy = new BasicEnemy(this, {x, y});
+    objects.push_back(enemy);
 }
 
 void GameManager::runGame() {
