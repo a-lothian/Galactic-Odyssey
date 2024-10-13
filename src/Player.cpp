@@ -8,6 +8,8 @@ Player::Player(GameManager* game)
     pos.y = 0;
     initTexture("assets/spaceship.png");
     initSprite();
+    sprite.setOrigin(height * 15, width * 15);  // Centers sprite over hit box
+    sprite.scale(0.08f, 0.08f);                 // Makes sprite smaller
 }
 
 // Functions govern player movement, using physics
