@@ -10,7 +10,7 @@ Player::Player(GameManager* game)
     initSprite();
     sprite.setOrigin(height * 15, width * 15);  // Centers sprite over hit box
     sprite.scale(0.08f, 0.08f);                 // Makes sprite smaller
-    this->dynamic = false;
+    this->dynamic = true;
 }
 
 // Functions govern player movement, using physics
