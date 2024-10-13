@@ -15,12 +15,14 @@ BoxObject::BoxObject(GameManager* game, Vector2 pos, float width, float height, 
 
 void BoxObject::drawObject() const {
     game->window.draw(shape);
+    game->window.draw(this->sprite);
 }
 
 void BoxObject::SetPosition(Vector2 newPos) {
     pos.x = newPos.x;  // 'pos' is inherited from GameObject
     pos.y = newPos.y;
     shape.setPosition(pos.x - (width / 2), pos.y - (height / 2));
+    sprite.setPosition(pos.x - (width / 2), pos.y - (height / 2));
 }
 
 std::string BoxObject::toString() const {
@@ -31,6 +33,7 @@ void BoxObject::update(float gametime) {
     pos.y += velocity.y * gametime;
     pos.x += velocity.x * gametime;
     shape.setPosition({pos.x - (width / 2), pos.y - (height / 2)});  // technical debt here. not sure why subtraction is needed
+    sprite.setPosition({pos.x - (width / 2), pos.y - (height / 2)});
 }
 
 bool BoxObject::isColliding(GameObject* other) {
