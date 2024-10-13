@@ -11,6 +11,8 @@ int main() {
     GameManager gameManager;
     BoxObject box(&gameManager, {250, 500}, 100, 100, sf::Color::Red);   // red box in middle of screen
     CircleObject circle(&gameManager, {250, 300}, 50, sf::Color::Blue);  // blue circle in middle of screen
+    box.dynamic = false;
+    circle.dynamic = true;
     gameManager.objects.push_back(&box);
     gameManager.objects.push_back(&circle);
     gameManager.runGame();

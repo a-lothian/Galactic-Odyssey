@@ -104,8 +104,12 @@ void BoxObject::resolveCollision(GameObject* other) {
 
         // Correct positions based on the smallest overlap
         Vector2 correction = normal * overlap;
-        this->pos = this->pos + (correction * thisResponse);
-        other->pos = other->pos - (correction * otherResponse);
+        if (this->dynamic) {
+            this->pos = this->pos + (correction * thisResponse);
+        }
+        if (other->dynamic) {
+            other->pos = other->pos - (correction * otherResponse);
+        }
 
         // Relative velocity
         Vector2 relativeVelocity = other->velocity - this->velocity;
@@ -121,8 +125,13 @@ void BoxObject::resolveCollision(GameObject* other) {
 
             // Apply impulse
             Vector2 impulse = normal * impulseScalar;
-            this->velocity = this->velocity - impulse * (1 / this->mass);
-            other->velocity = other->velocity + impulse * (1 / other->mass);
+
+            if (this->dynamic) {
+                this->velocity = this->velocity - impulse * (1 / this->mass);
+            }
+            if (other->dynamic) {
+                other->velocity = other->velocity + impulse * (1 / other->mass);
+            }
         }
     } else if (dynamic_cast<CircleObject*>(other)) {
         CircleObject* otherBall = (CircleObject*)other;
@@ -154,8 +163,12 @@ void BoxObject::resolveCollision(GameObject* other) {
 
         // Position correction
         Vector2 correction = normal * overlap;
-        this->pos = this->pos - (correction * aabbResponse);
-        other->pos = other->pos + (correction * ballResponse);
+        if (this->dynamic) {
+            this->pos = this->pos - (correction * aabbResponse);
+        }
+        if (other->dynamic) {
+            other->pos = other->pos + (correction * ballResponse);
+        }
 
         // Relative velocity
         Vector2 relativeVelocity = other->velocity - this->velocity;
@@ -172,7 +185,9 @@ void BoxObject::resolveCollision(GameObject* other) {
             // Apply impulse
             Vector2 impulse = normal * impulseScalar;
             this->velocity = this->velocity - impulse * (1 / this->mass);
-            other->velocity = other->velocity + impulse * (1 / other->mass);
+            if (other->dynamic) {
+                other->velocity = other->velocity + impulse * (1 / other->mass);
+            }
         }
     } else {
         std::cout << "Collision type not implemented\n";

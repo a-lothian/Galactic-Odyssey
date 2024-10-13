@@ -6,6 +6,7 @@
 Player::Player(GameManager* game)
     : BoxObject(game), health(100), impulseStrength(5.0f), mass(4), dampening(0.99f) {
     pos.y = 0;
+    this->dynamic = false;
 }
 
 // Functions govern player movement, using physics

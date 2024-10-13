@@ -78,8 +78,13 @@ void CircleObject::resolveCollision(GameObject* other) {
 
         Vector2 correction = normal * overlap;
 
-        this->pos = this->pos + (correction * o1Response);
-        other->pos = other->pos + ((correction * -1) * o2Response);
+        if (this->dynamic) {
+            this->pos = this->pos + (correction * o1Response);
+        }
+
+        if (other->dynamic) {
+            other->pos = other->pos + ((correction * -1) * o2Response);
+        }
 
         // relative velocity
         Vector2 relativeVelocity = other->velocity - this->velocity;
@@ -95,8 +100,14 @@ void CircleObject::resolveCollision(GameObject* other) {
 
             // Apply impulse
             Vector2 impulse = normal * impulseScalar;
-            this->velocity = this->velocity - impulse * (1 / this->mass);
-            other->velocity = other->velocity + impulse * (1 / other->mass);
+
+            if (this->dynamic) {
+                this->velocity = this->velocity - impulse * (1 / this->mass);
+            }
+
+            if (other->dynamic) {
+                other->velocity = other->velocity + impulse * (1 / other->mass);
+            }
         }
     } else if (dynamic_cast<BoxObject*>(other)) {
         BoxObject* otherBox = (BoxObject*)other;
@@ -128,9 +139,14 @@ void CircleObject::resolveCollision(GameObject* other) {
 
         // Position correction
         Vector2 correction = normal * overlap;
-        this->pos = this->pos + (correction * ballResponse);
-        other->pos = other->pos - (correction * aabbResponse);
 
+        if (this->dynamic) {
+            this->pos = this->pos + (correction * ballResponse);
+        }
+
+        if (other->dynamic) {
+            other->pos = other->pos - (correction * aabbResponse);
+        }
         // Relative velocity
         Vector2 relativeVelocity = this->velocity - other->velocity;
         float velocityAlongNormal = relativeVelocity.dot(normal);
@@ -145,8 +161,13 @@ void CircleObject::resolveCollision(GameObject* other) {
 
             // Apply impulse
             Vector2 impulse = normal * impulseScalar;
-            this->velocity = this->velocity + impulse * (1 / this->mass);
-            other->velocity = other->velocity - impulse * (1 / other->mass);
+
+            if (this->dynamic) {
+                this->velocity = this->velocity + impulse * (1 / this->mass);
+            }
+            if (other->dynamic) {
+                other->velocity = other->velocity - impulse * (1 / other->mass);
+            }
         }
     }
 
