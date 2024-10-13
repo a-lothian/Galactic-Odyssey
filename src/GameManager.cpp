@@ -69,7 +69,7 @@ void GameManager::runGame() {
 void GameManager::HandleCollisions(float gametime, int substeps) {
     float sub_dt = gametime / substeps;
 
-    for (size_t s = 0; s < substeps; s++) {
+    for (int s = 0; s < substeps; s++) {
         for (u_long i = 0; i < objects.size(); i++) {
             objects[i]->update(sub_dt);
         }
