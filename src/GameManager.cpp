@@ -130,6 +130,13 @@ sf::Text GameManager::createText(std::string str, int characterSize, sf::Color f
     return text;
 }
 
+void GameManager::updateScore(int newScore) {
+    score = newScore;
+    std::string score_check = "Score: ";
+    score_check.append(std::to_string(score));
+    score_text.setString(score_check);
+}
+
 void GameManager::saveGame() {
     std::ofstream user_save;
     user_save.open("saves/user_save");
