@@ -14,6 +14,7 @@ class Player;
 class BasicEnemy;
 class BoxObject;
 class CircleObject;
+class Bullet;
 
 class GameManager {
    public:
@@ -40,6 +41,7 @@ class GameManager {
     std::vector<GameObject*> objects;
     std::vector<BasicEnemy*> enemies;
     std::vector<GameObject*> colliders;
+    std::vector<Bullet*> bullets;
 
     // game variables
     int score;
@@ -60,6 +62,11 @@ class GameManager {
     BasicEnemy* createBasicEnemy_Single(float x, float y);
     // void createEnemy_3_Cluster(Vector2 pos);
     // void createEnemy_3_Line(Vector2 pos);
+
+    // Bullet Creation
+    Bullet* createBullet(GameObject* parent, float x, float y, float radius, float speed, float angle, int damage, sf::Color colour, bool doCollision);
+
+    void printObjectSize() { std::cout << "Objects size: " << objects.size() << std::endl; }
 
     // Saving and loading
     void saveGame();

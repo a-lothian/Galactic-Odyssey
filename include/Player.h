@@ -16,7 +16,7 @@ class Player : public BoxObject {
     float mass;
     float dampening;
 
-    Weapon currentWeapon;
+    Weapon* currentWeapon;
     Vector2 velocity;
 
     void update(float gametime);

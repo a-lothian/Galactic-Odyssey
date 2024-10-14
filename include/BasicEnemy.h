@@ -14,7 +14,7 @@ class BasicEnemy : public BoxObject {
     int health;
     float speed;
 
-    Weapon currentWeapon;
+    Weapon* currentWeapon;
     Vector2 velocity;
 
     void update(float gametime);

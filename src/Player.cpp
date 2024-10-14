@@ -5,6 +5,12 @@
 
 Player::Player(GameManager* game)
     : BoxObject(game), health(100), impulseStrength(5.0f), mass(4), dampening(0.99f) {
+    if (game == nullptr) {
+        std::cerr << "Error: GameManager is null in Player!" << std::endl;
+    }
+
+    this->currentWeapon = new Weapon(game, this);
+
     pos = {250, 700};
     this->isPhysics = true;
     initTexture("assets/spaceship.png");
@@ -33,31 +39,5 @@ void Player::applyImpulse(Vector2 impulse) {
 }
 
 void Player::shootWeapon() {
-    // Creates bullet object if cooldown in weapon class is over
-    if (currentWeapon.shootCooldownOver()) {
-        switch (currentWeapon.getPowerup()) {  // this switch statement should be in weapon class, all powerup logic should be handled there
-        // SINGLE, DOUBLE etc refers to the powerup being used when shooting
-        // This can be refactored into a function after powerup ideas are sorted out
-        case Weapon::SINGLE: {
-            Bullet* bullet = new Bullet(game, {pos.x, pos.y - 5}, 5, 15, 0, 1, sf::Color::White);
-            game->objects.push_back(bullet);
-            break;
-        }
-        case Weapon::DOUBLE: {
-            Bullet* bullet = new Bullet(game, {pos.x + 10, pos.y - 3}, 5, 15, 0, 1, sf::Color::White);
-            game->objects.push_back(bullet);
-            Bullet* bullet2 = new Bullet(game, {pos.x + 30, pos.y - 3}, 5, 15, 0, 1, sf::Color::White);
-            game->objects.push_back(bullet2);
-            break;
-        }
-        case Weapon::TRIPLE: {
-            // Triple powerup code
-            break;
-        }
-        case Weapon::RICOCHET: {
-            // Ricochet powerup code
-            break;
-        }
-        }
-    }
+    currentWeapon->shoot();
 }

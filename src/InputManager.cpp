@@ -30,7 +30,7 @@ void InputManager::CheckInputs() {
         Direction.x += 1;
     }
     if (space) {
-        player->shootWeapon();
+        // player->shootWeapon();
     }
 
     Direction = Direction.normalize();  // strafing shouldn't be faster

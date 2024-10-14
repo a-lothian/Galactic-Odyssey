@@ -4,31 +4,27 @@
 #include "string"
 #include <SFML/Graphics.hpp>
 
+#include "GameManager.h"
+
 class Weapon {
    public:
-    Weapon();
+    Weapon(GameManager* game, GameObject* parent);
     ~Weapon();
+
+    GameManager* game;
+    GameObject* parent;
 
     std::string name;
     int damage;
     bool shootCooldownOver();  // Returns true if cooldown is over
+    void shoot();
 
-    enum weaponType {  // General powerup ideas
-        SINGLE,
-        DOUBLE,
-        TRIPLE,
-        RICOCHET
-    };
-
-    weaponType getPowerup();
-
-    void setPowerup(Weapon::weaponType newPowerup);
+    int bulletsPerShot;
+    bool richochet;
 
    private:
     sf::Clock clock;
     sf::Time elapsed;
     float cooldown;
-
-    enum weaponType powerup;
 };
 #endif

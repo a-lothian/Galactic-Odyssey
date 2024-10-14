@@ -7,6 +7,7 @@
 #include "Weapon.h"
 #include "BoxObject.h"
 #include "CircleObject.h"
+#include "Bullet.h"
 #include <fstream>
 #include <string>
 
@@ -106,6 +107,17 @@ void GameManager::runGame() {
     }
 }
 
+Bullet* GameManager::createBullet(GameObject* parent, float x, float y, float radius, float speed, float angle, int damage, sf::Color colour, bool doCollision) {
+    Bullet* bullet = new Bullet(this, parent, {parent->pos.x, parent->pos.y}, radius, speed, angle, damage, colour);
+
+    objects.push_back(bullet);
+
+    if (doCollision) {
+        colliders.push_back(bullet);
+    }
+    return bullet;
+}
+
 void GameManager::saveGame() {
     std::ofstream user_save;
     user_save.open("saves/user_save");
@@ -161,13 +173,16 @@ void GameManager::updateGame() {
         2. Do events (spawning stuff, AI logic, ect)
         3. Simulate objects (movement, collisions, ect)
     */
-
-    // Handle input
+    //  Handle input
     inputManager->CheckInputs();
 
     // Do events
 
     player->applyImpulse(inputManager->Direction);  // Move player
+
+    if (inputManager->space) {
+        player->shootWeapon();
+    }
 
     for (u_long i = 0; i < objects.size(); i++) {  // simulate all objects 1 frame
     }

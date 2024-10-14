@@ -7,12 +7,14 @@
 
 class Bullet : public CircleObject {
    public:
-    Bullet(GameManager* game, Vector2 pos, float radius, float speed, float angle, int damage, sf::Color colour);
-    ~Bullet() {};
-
-    Vector2 velocity;
+    GameObject* parent;
     int damage;
+    Vector2 velocity;
+
+    Bullet(GameManager* game, GameObject* parent, Vector2 pos, float radius, float speed, float angle, int damage, sf::Color colour);
+    ~Bullet() {};
 
     void update(float gametime);
 };
+
 #endif
