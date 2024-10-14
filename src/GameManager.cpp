@@ -124,9 +124,9 @@ void GameManager::initHUD() {
     std::string ui_score = "Score: ";
     std::string ui_timer = "Time: ";
     ui_score.append(std::to_string(score));
-    ui_timer.append(std::to_string(seconds));
     score_text = createText(ui_score, 25, sf::Color::White, {30, 20});
-    timer_text = createText(ui_timer, 25, sf::Color::White, {350, 20});
+    timer_text = createText(ui_timer, 25, sf::Color::White, {340, 20});
+    updateTimer(seconds);
 }
 
 sf::Text GameManager::createText(std::string str, int characterSize, sf::Color fillColour, sf::Vector2f position) {
