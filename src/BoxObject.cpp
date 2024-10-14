@@ -110,7 +110,7 @@ void BoxObject::resolveCollision(GameObject* other) {
         if (this->dynamic) {
             this->pos = this->pos + (correction * thisResponse);
         }
-        if (other->dynamic) {
+        if (other->receptive) {
             other->pos = other->pos - (correction * otherResponse);
         }
 
@@ -132,7 +132,7 @@ void BoxObject::resolveCollision(GameObject* other) {
             if (this->dynamic) {
                 this->velocity = this->velocity - impulse * (1 / this->mass);
             }
-            if (other->dynamic) {
+            if (other->receptive) {
                 other->velocity = other->velocity + impulse * (1 / other->mass);
             }
         }
@@ -169,7 +169,7 @@ void BoxObject::resolveCollision(GameObject* other) {
         if (this->dynamic) {
             this->pos = this->pos - (correction * aabbResponse);
         }
-        if (other->dynamic) {
+        if (other->receptive) {
             other->pos = other->pos + (correction * ballResponse);
         }
 
@@ -187,8 +187,10 @@ void BoxObject::resolveCollision(GameObject* other) {
 
             // Apply impulse
             Vector2 impulse = normal * impulseScalar;
-            this->velocity = this->velocity - impulse * (1 / this->mass);
-            if (other->dynamic) {
+            if (this->dynamic) {
+                this->velocity = this->velocity - impulse * (1 / this->mass);
+            }
+            if (other->receptive) {
                 other->velocity = other->velocity + impulse * (1 / other->mass);
             }
         }

@@ -10,7 +10,9 @@ Player::Player(GameManager* game)
     initSprite();
     sprite.setOrigin(height * 15, width * 15);  // Centers sprite over hit box
     sprite.scale(0.08f, 0.08f);                 // Makes sprite smaller
-    this->dynamic = true;
+
+    this->dynamic = false;
+    this->receptive = true;
 }
 
 // Functions govern player movement, using physics
@@ -33,7 +35,7 @@ void Player::applyImpulse(Vector2 impulse) {
 void Player::shootWeapon() {
     // Creates bullet object if cooldown in weapon class is over
     if (currentWeapon.shootCooldownOver()) {
-        switch (currentWeapon.getPowerup()) {
+        switch (currentWeapon.getPowerup()) {  // this switch statement should be in weapon class, all powerup logic should be handled there
         // SINGLE, DOUBLE etc refers to the powerup being used when shooting
         // This can be refactored into a function after powerup ideas are sorted out
         case Weapon::SINGLE: {

@@ -12,6 +12,8 @@
 class GameObject;  // forward declaration, as GameObject needs to reference from GameManager (avoids circular dependency)
 class Player;
 class BasicEnemy;
+class BoxObject;
+class CircleObject;
 
 class GameManager {
    public:
@@ -24,19 +26,20 @@ class GameManager {
 
    public:  // changed to test rendering in main.cpp, will be private later
     // window
-    sf::Event event;  // to be passed to input manager (keystroke inputs)
     int framerate;
     float gamespeed;
 
     sf::Texture backgroundTexture;  // Background texture
-    sf::Sprite backgroundSprite;  // Background sprite
-    void initBackgroud();  // Initializes background
+    sf::Sprite backgroundSprite;    // Background sprite
+    void initBackgroud();           // Initializes background
 
     // game classes
     Player* player;
     InputManager* inputManager;
+
     std::vector<GameObject*> objects;
-    BasicEnemy* enemy;
+    std::vector<BasicEnemy*> enemies;
+    std::vector<GameObject*> colliders;
 
     // game variables
     int score;
@@ -49,10 +52,14 @@ class GameManager {
     void updateGame();
     void renderGame();
 
+    // Object creation, adds objects to objects and collisions if required
+    BoxObject* createBox(float x, float y, float width, float height, sf::Color colour, bool doCollision);
+    CircleObject* createCircle(float x, float y, float radius, sf::Color colour, bool doCollision);
+
     // Enemy spawning
-    void createEnemy_Single(float x, float y);
-    void createEnemy_3_Cluster(Vector2 pos);
-    void createEnemy_3_Line(Vector2 pos);
+    BasicEnemy* createBasicEnemy_Single(float x, float y);
+    // void createEnemy_3_Cluster(Vector2 pos);
+    // void createEnemy_3_Line(Vector2 pos);
 
     // Saving and loading
     void saveGame();

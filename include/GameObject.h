@@ -21,8 +21,10 @@ class GameObject {
     GameManager* game;
     Vector2 pos;
     bool render = true;
-    bool dynamic = true;  // does object move?
     Vector2 velocity;
+
+    bool dynamic;    // can this object move other physics objects?
+    bool receptive;  // does this object react to other physics objects?
 
     float mass;
     sf::Shape* shape;

@@ -42,7 +42,8 @@ bool CircleObject::isColliding(GameObject* other) {
         CircleObject* otherball = (CircleObject*)other;  // cast to CircleObject
         float radii_sum = this->radius + otherball->radius;
 
-        float distance = std::sqrt(pos.x - otherball->pos.x * pos.x - otherball->pos.x + pos.y - otherball->pos.y * pos.y - otherball->pos.y);
+        float distance = std::sqrt((pos.x - otherball->pos.x) * (pos.x - otherball->pos.x) +
+                                   (pos.y - otherball->pos.y) * (pos.y - otherball->pos.y));
 
         if (distance <= radii_sum) {
             return true;
@@ -62,7 +63,8 @@ bool CircleObject::isColliding(GameObject* other) {
 }
 
 void CircleObject::resolveCollision(GameObject* other) {
-    float distance = std::sqrt(pos.x - other->pos.x * pos.x - other->pos.x + pos.y - other->pos.y * pos.y - other->pos.y);
+    float distance = std::sqrt((pos.x - other->pos.x) * (pos.x - other->pos.x) +
+                               (pos.y - other->pos.y) * (pos.y - other->pos.y));
 
     if (dynamic_cast<CircleObject*>(other)) {  // Ball vs Ball
 
@@ -82,7 +84,7 @@ void CircleObject::resolveCollision(GameObject* other) {
             this->pos = this->pos + (correction * o1Response);
         }
 
-        if (other->dynamic) {
+        if (other->receptive) {
             other->pos = other->pos + ((correction * -1) * o2Response);
         }
 
@@ -105,7 +107,7 @@ void CircleObject::resolveCollision(GameObject* other) {
                 this->velocity = this->velocity - impulse * (1 / this->mass);
             }
 
-            if (other->dynamic) {
+            if (other->receptive) {
                 other->velocity = other->velocity + impulse * (1 / other->mass);
             }
         }
@@ -144,7 +146,7 @@ void CircleObject::resolveCollision(GameObject* other) {
             this->pos = this->pos + (correction * ballResponse);
         }
 
-        if (other->dynamic) {
+        if (other->receptive) {
             other->pos = other->pos - (correction * aabbResponse);
         }
         // Relative velocity
@@ -165,7 +167,7 @@ void CircleObject::resolveCollision(GameObject* other) {
             if (this->dynamic) {
                 this->velocity = this->velocity + impulse * (1 / this->mass);
             }
-            if (other->dynamic) {
+            if (other->receptive) {
                 other->velocity = other->velocity - impulse * (1 / other->mass);
             }
         }

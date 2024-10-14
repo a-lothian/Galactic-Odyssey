@@ -3,16 +3,16 @@
 #include <iostream>
 
 GameObject::GameObject(GameManager* game)
-    : game(game), pos({0, 0}), render(true), velocity({0, 0}), mass(1), shape(nullptr) {
+    : game(game), pos({0, 0}), render(true), velocity({0, 0}), dynamic(false), receptive(false), mass(1), shape(nullptr) {
 }
 
-void GameObject::initTexture(std::string filePath)   {
-    if (!this->texture.loadFromFile(filePath))  {
+void GameObject::initTexture(std::string filePath) {
+    if (!this->texture.loadFromFile(filePath)) {
         std::cout << "Error loading file." << std::endl;
     }
 }
 
-void GameObject::initSprite()    {
+void GameObject::initSprite() {
     this->sprite.setTexture(this->texture);
 }
 

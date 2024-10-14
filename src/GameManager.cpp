@@ -6,6 +6,7 @@
 #include "BasicEnemy.h"
 #include "Weapon.h"
 #include "BoxObject.h"
+#include "CircleObject.h"
 #include <fstream>
 #include <string>
 
@@ -15,6 +16,17 @@ GameManager::GameManager()
     player = new Player(this);
     objects.push_back(player);
     inputManager = new InputManager(player);
+
+    // create test objects
+    CircleObject* circle1 = createCircle(250, 500, 50, sf::Color::Red, true);
+    circle1->velocity = {0, -2};
+    circle1->dynamic = true;
+    circle1->receptive = true;
+
+    CircleObject* circle2 = createCircle(250, 300, 50, sf::Color::Blue, true);
+    circle2->dynamic = true;
+    circle2->receptive = true;
+
     initBackgroud();
 }
 
@@ -35,18 +47,46 @@ void GameManager::toString() {
 void GameManager::renderGame() {
     this->window.clear();
     this->window.draw(this->backgroundSprite);
+
     for (GameObject* object : objects) {
         if (object->render) {
             object->drawObject();
         }
     }
+    for (BasicEnemy* enemy : enemies) {
+        enemy->drawObject();
+    }
+
     this->window.display();
     this->backgroundSprite.move(0, 0.5f);
 }
 
-void GameManager::createEnemy_Single(float x, float y) {
-    enemy = new BasicEnemy(this, {x, y});
-    objects.push_back(enemy);
+BoxObject* GameManager::createBox(float x, float y, float width, float height, sf::Color colour, bool doCollision) {
+    BoxObject* box = new BoxObject(this, {x, y}, width, height, colour);
+
+    objects.push_back(box);
+
+    if (doCollision) {
+        colliders.push_back(box);
+    }
+    return box;
+}
+
+CircleObject* GameManager::createCircle(float x, float y, float radius, sf::Color colour, bool doCollision) {
+    CircleObject* circle = new CircleObject(this, {x, y}, radius, colour);
+
+    objects.push_back(circle);
+
+    if (doCollision) {
+        colliders.push_back(circle);
+    }
+    return circle;
+}
+
+BasicEnemy* GameManager::createBasicEnemy_Single(float x, float y) {
+    BasicEnemy* enemy = new BasicEnemy(this, {x, y});
+    enemies.push_back(enemy);
+    return enemy;
 }
 
 void GameManager::runGame() {
@@ -87,12 +127,12 @@ void GameManager::loadSave() {
     user_load.open("saves/user_save");
     if (!user_load.is_open()) {
         std::cout << "No save detected. \n";
-        score = 0; // If there is no save, sets score to 0
+        score = 0;  // If there is no save, sets score to 0
     } else {
         // Loads player score
         std::string score_str;
         user_load >> score_str;
-        score_str = score_str.substr(6); // Removing the "score=" part from the line
+        score_str = score_str.substr(6);  // Removing the "score=" part from the line
         score = std::stoi(score_str);
         user_load.close();
     }
@@ -105,6 +145,7 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
         for (u_long i = 0; i < objects.size(); i++) {
             objects[i]->update(sub_dt);
         }
+
         for (u_long i = 0; i < objects.size(); i++) {
             for (u_long j = i + 1; j < objects.size(); j++) {
                 bool isColliding = objects[i]->isColliding(objects[j]);
@@ -136,8 +177,5 @@ void GameManager::updateGame() {
 
     // Check collisions + resolve collisions
 
-    HandleCollisions(1, 8);  // 1 frame of
+    HandleCollisions(1, 8);  // 1 frame of collision resolution with 8 substeps
 }
-
-
-
