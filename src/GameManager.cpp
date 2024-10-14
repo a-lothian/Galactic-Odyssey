@@ -30,12 +30,31 @@ GameManager::GameManager()
 
 void GameManager::initBackgroud() {
     if (!this->backgroundTexture.loadFromFile("assets/background.jpg")) {
-        std::cout << "Error loading file." << std::endl;
+        std::cout << "Error loading background file." << std::endl;
     }
-    this->backgroundTexture.setRepeated(true);
+    if (!this->starTexture.loadFromFile("assets/background_star.jpg"))  {
+        std::cout << "Error loading star file." << std::endl;
+    }
     this->backgroundSprite.setTexture(this->backgroundTexture);
-    this->backgroundSprite.setOrigin(960, 500);
+    this->backgroundSprite.setPosition(-700, -475);
+
+    this->starTexture.setRepeated(true);
+    this->starSprite1.setTexture(this->starTexture);
+    this->starSprite2.setTexture(this->starTexture);
+    this->starSprite1.setPosition(-700, -445 - this->backgroundSprite.getGlobalBounds().height);
+    this->starSprite2.setPosition(-700, -445 - this->starSprite1.getGlobalBounds().height - 1285);
 }
+
+void GameManager::repeatStar()  {
+    if (this->starSprite1.getPosition().y >= this->window.getSize().y) {
+        this->starSprite1.setPosition(-700, -445 - this->starSprite1.getGlobalBounds().height);
+    }
+
+    if (this->starSprite2.getPosition().y >= this->window.getSize().y) {
+        this->starSprite2.setPosition(-700, -445 - this->starSprite2.getGlobalBounds().height);
+    }
+}
+
 void GameManager::toString() {
     for (GameObject* object : objects) {
         std::cout << object->toString() << std::endl;
@@ -45,6 +64,8 @@ void GameManager::toString() {
 void GameManager::renderGame() {
     this->window.clear();
     this->window.draw(this->backgroundSprite);
+    this->window.draw(this->starSprite1);
+    this->window.draw(this->starSprite2);
 
     for (GameObject* object : objects) {
         if (object->render) {
@@ -58,7 +79,10 @@ void GameManager::renderGame() {
     this->window.draw(score_text);
 
     this->window.display();
-    this->backgroundSprite.move(0, 0.5f);
+    this->backgroundSprite.move(0, 20);
+    this->starSprite1.move(0, 20);
+    this->starSprite2.move(0, 20);
+    repeatStar();
 }
 
 BoxObject* GameManager::createBox(float x, float y, float width, float height, sf::Color colour, bool doCollision) {

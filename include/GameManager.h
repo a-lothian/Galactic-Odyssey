@@ -32,7 +32,11 @@ class GameManager {
 
     sf::Texture backgroundTexture;  // Background texture
     sf::Sprite backgroundSprite;    // Background sprite
+    sf::Texture starTexture;        // Star texture
+    sf::Sprite starSprite1;          // Star sprite 
+    sf::Sprite starSprite2;          // Second star sprite
     void initBackgroud();           // Initializes background
+    void repeatStar();              // Repeats the star
 
     // game classes
     Player* player;
