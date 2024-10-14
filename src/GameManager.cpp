@@ -155,8 +155,21 @@ void GameManager::updateScore(int newScore) {
 
 void GameManager::updateTimer(int newSeconds) {
     seconds = newSeconds;
+    int minutes = seconds / 60;
+    int remainingSeconds = seconds % 60;
+
+    // Formatting the time
     std::string time_check = "Time: ";
-    time_check.append(std::to_string(seconds));
+    if (seconds < 600) {
+        time_check.append("0");
+    }
+    time_check.append(std::to_string(minutes));
+    time_check.append(":");
+    if (remainingSeconds < 10) {
+        time_check.append("0");
+    }
+    time_check.append(std::to_string(remainingSeconds));
+    
     timer_text.setString(time_check);
 }
 
