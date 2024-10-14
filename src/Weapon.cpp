@@ -8,7 +8,7 @@ Weapon::Weapon(GameManager* game, GameObject* parent)
     }
 
     cooldown = 0.250;
-    bulletsPerShot = 1;
+    bulletsPerShot = 30;
     richochet = false;
 }
 
@@ -29,6 +29,13 @@ bool Weapon::shootCooldownOver() {
 
 void Weapon::shoot() {
     if (shootCooldownOver()) {
-        game->createBullet(parent, parent->pos.x, parent->pos.y, 5, 15, 0, 1, sf::Color::White, false);
+        float coneSize = std::min((bulletsPerShot - 1) * 10, 100);
+        float angleStep = coneSize / (bulletsPerShot - 1);  // The angle difference between each bullet
+        float startAngle = 90 - (coneSize / 2);             // Start at -90 degrees (left side) for symmetry
+
+        for (int i = 0; i < bulletsPerShot; i++) {
+            float angle = startAngle + (i * angleStep);  // Calculate each bullet's angle
+            game->createBullet(parent, parent->pos.x, parent->pos.y, 5, 15, angle, 1, sf::Color::White, false);
+        }
     }
 }

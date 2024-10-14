@@ -12,7 +12,7 @@ Bullet::Bullet(GameManager* game, GameObject* parent, Vector2 pos, float radius,
         std::cerr << "Error: Bullet parent is null!" << std::endl;
     }
 
-    float angleRadians = (angle + 90) * (M_PI / 180.0f);  // convert to radians
+    float angleRadians = (angle) * (M_PI / 180.0f);  // convert to radians
 
     velocity.x = speed * std::cos(angleRadians);
     velocity.y = -speed * std::sin(angleRadians);
