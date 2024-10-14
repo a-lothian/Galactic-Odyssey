@@ -11,9 +11,9 @@ class Weapon {
 
     std::string name;
     int damage;
-    bool shootCooldownOver(); // Returns true if cooldown is over
+    bool shootCooldownOver();  // Returns true if cooldown is over
 
-    enum weaponType { // General powerup ideas
+    enum weaponType {  // General powerup ideas
         SINGLE,
         DOUBLE,
         TRIPLE,
@@ -30,8 +30,5 @@ class Weapon {
     float cooldown;
 
     enum weaponType powerup;
-    
-
-
 };
 #endif

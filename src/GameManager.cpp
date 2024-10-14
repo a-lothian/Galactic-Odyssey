@@ -18,14 +18,11 @@ GameManager::GameManager()
     inputManager = new InputManager(player);
 
     // create test objects
-    CircleObject* circle1 = createCircle(250, 500, 50, sf::Color::Red, true);
-    circle1->velocity = {0, -2};
-    circle1->dynamic = true;
-    circle1->receptive = true;
+    BoxObject* barrierL = createBox(565, 400, 100, 1000, sf::Color::Red, true);
+    BoxObject* barrierR = createBox(-65, 400, 100, 1000, sf::Color::Red, true);
 
-    CircleObject* circle2 = createCircle(250, 300, 50, sf::Color::Blue, true);
-    circle2->dynamic = true;
-    circle2->receptive = true;
+    barrierL->dynamic = true;
+    barrierR->dynamic = true;
 
     initBackgroud();
 }
@@ -149,7 +146,7 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
         for (u_long i = 0; i < objects.size(); i++) {
             for (u_long j = i + 1; j < objects.size(); j++) {
                 bool isColliding = objects[i]->isColliding(objects[j]);
-                if (isColliding) {
+                if (isColliding && objects[i]->isPhysics && objects[j]->isPhysics) {
                     objects[i]->resolveCollision(objects[j]);
                 }
             }

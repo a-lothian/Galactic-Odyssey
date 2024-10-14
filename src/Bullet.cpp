@@ -9,8 +9,7 @@ Bullet::Bullet(GameManager* game, Vector2 pos, float radius, float speed, float 
 
     velocity.x = speed * std::cos(angleRadians);
     velocity.y = -speed * std::sin(angleRadians);
-    dynamic = false;
-    receptive = false;
+    isPhysics = false;
 }
 
 // Handles bullet movement

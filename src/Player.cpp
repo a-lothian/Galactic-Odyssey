@@ -5,14 +5,14 @@
 
 Player::Player(GameManager* game)
     : BoxObject(game), health(100), impulseStrength(5.0f), mass(4), dampening(0.99f) {
-    pos.y = 0;
+    pos = {250, 700};
+    this->isPhysics = true;
     initTexture("assets/spaceship.png");
     initSprite();
     sprite.setOrigin(height * 15, width * 15);  // Centers sprite over hit box
     sprite.scale(0.08f, 0.08f);                 // Makes sprite smaller
 
-    this->dynamic = false;
-    this->receptive = true;
+    this->dynamic = true;
 }
 
 // Functions govern player movement, using physics
@@ -39,7 +39,7 @@ void Player::shootWeapon() {
         // SINGLE, DOUBLE etc refers to the powerup being used when shooting
         // This can be refactored into a function after powerup ideas are sorted out
         case Weapon::SINGLE: {
-            Bullet* bullet = new Bullet(game, {pos.x + 10, pos.y - 3}, 5, 15, 0, 1, sf::Color::White);
+            Bullet* bullet = new Bullet(game, {pos.x, pos.y - 5}, 5, 15, 0, 1, sf::Color::White);
             game->objects.push_back(bullet);
             break;
         }

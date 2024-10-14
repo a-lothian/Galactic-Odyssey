@@ -23,6 +23,7 @@ class GameObject {
     bool render = true;
     Vector2 velocity;
 
+    bool isPhysics;  // does this object move in reaction to any collision?
     bool dynamic;    // can this object move other physics objects?
     bool receptive;  // does this object react to other physics objects?
 
