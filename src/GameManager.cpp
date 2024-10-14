@@ -55,6 +55,8 @@ void GameManager::renderGame() {
         enemy->drawObject();
     }
 
+    this->window.draw(score_text);
+
     this->window.display();
     this->backgroundSprite.move(0, 0.5f);
 }
@@ -105,6 +107,34 @@ void GameManager::runGame() {
         updateGame();
         renderGame();
     }
+}
+
+void GameManager::initHUD() {
+    std::string score_check = "Score: ";
+    score_check.append(std::to_string(score));
+    score_text = createText(score_check, 25, sf::Color::White, {350, 20});
+}
+
+sf::Text GameManager::createText(std::string str, int characterSize, sf::Color fillColour, sf::Vector2f position) {
+    // Creates text
+    sf::Text text;
+    if (!roboto.loadFromFile("fonts/Roboto-Light.ttf"))  // Should eventually find a better font than this
+    {
+        std::cerr << "Failed to load font. Fonts directory may be missing, or file is inaccessible." << std::endl;
+    }
+    text.setFont(roboto);
+    text.setString(str);
+    text.setCharacterSize(characterSize);
+    text.setFillColor(fillColour);
+    text.setPosition(position);
+    return text;
+}
+
+void GameManager::updateScore(int newScore) {
+    score = newScore;
+    std::string score_check = "Score: ";
+    score_check.append(std::to_string(score));
+    score_text.setString(score_check);
 }
 
 Bullet* GameManager::createBullet(GameObject* parent, float x, float y, float radius, float speed, float angle, int damage, sf::Color colour, bool doCollision) {

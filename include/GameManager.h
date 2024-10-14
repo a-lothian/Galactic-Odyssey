@@ -71,6 +71,15 @@ class GameManager {
     // Saving and loading
     void saveGame();
     void loadSave();
+
+    //  User interface
+    sf::Text score_text;
+    sf::Font roboto;
+    void initHUD();
+    sf::Text createText(std::string str, int characterSize, sf::Color fillColour, sf::Vector2f position);
+    void updateScore(int newScore);
+
+
 };
 
 #endif
