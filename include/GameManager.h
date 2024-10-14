@@ -78,10 +78,16 @@ class GameManager {
 
     //  User interface
     sf::Text score_text;
+    sf::Text timer_text;
     sf::Font roboto;
+    int seconds;
+    sf::Clock timer;
+
     void initHUD();
     sf::Text createText(std::string str, int characterSize, sf::Color fillColour, sf::Vector2f position);
     void updateScore(int newScore);
+    void updateTimer(int newSeconds);
+
 
 
 };

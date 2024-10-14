@@ -77,6 +77,7 @@ void GameManager::renderGame() {
     }
 
     this->window.draw(score_text);
+    this->window.draw(timer_text);
 
     this->window.display();
     this->backgroundSprite.move(0, 20);
@@ -116,6 +117,7 @@ BasicEnemy* GameManager::createBasicEnemy_Single(float x, float y) {
 void GameManager::runGame() {
     framerate = 60;
     gamespeed = 1 / framerate;
+    seconds = 0;
     window.setFramerateLimit(framerate);
 
     while (window.isOpen()) {
@@ -127,16 +129,28 @@ void GameManager::runGame() {
             }
         }
 
+        // Updates the timer in seconds
+        if (timer.getElapsedTime().asSeconds() >= 1) {
+            timer.restart();
+            seconds++;
+            updateTimer(seconds);
+        } 
+
         // Update and render game
+        
         updateGame();
         renderGame();
     }
 }
 
 void GameManager::initHUD() {
-    std::string score_check = "Score: ";
-    score_check.append(std::to_string(score));
-    score_text = createText(score_check, 25, sf::Color::White, {350, 20});
+    seconds = 0;
+    std::string ui_score = "Score: ";
+    std::string ui_timer = "Time: ";
+    ui_score.append(std::to_string(score));
+    score_text = createText(ui_score, 25, sf::Color::White, {30, 20});
+    timer_text = createText(ui_timer, 25, sf::Color::White, {340, 20});
+    updateTimer(seconds);
 }
 
 sf::Text GameManager::createText(std::string str, int characterSize, sf::Color fillColour, sf::Vector2f position) {
@@ -151,6 +165,8 @@ sf::Text GameManager::createText(std::string str, int characterSize, sf::Color f
     text.setCharacterSize(characterSize);
     text.setFillColor(fillColour);
     text.setPosition(position);
+    text.setOutlineThickness(4.0f);
+    text.setOutlineColor(sf::Color::Black);
     return text;
 }
 
@@ -159,6 +175,26 @@ void GameManager::updateScore(int newScore) {
     std::string score_check = "Score: ";
     score_check.append(std::to_string(score));
     score_text.setString(score_check);
+}
+
+void GameManager::updateTimer(int newSeconds) {
+    seconds = newSeconds;
+    int minutes = seconds / 60;
+    int remainingSeconds = seconds % 60;
+
+    // Formatting the time
+    std::string time_check = "Time: ";
+    if (seconds < 600) {
+        time_check.append("0");
+    }
+    time_check.append(std::to_string(minutes));
+    time_check.append(":");
+    if (remainingSeconds < 10) {
+        time_check.append("0");
+    }
+    time_check.append(std::to_string(remainingSeconds));
+    
+    timer_text.setString(time_check);
 }
 
 Bullet* GameManager::createBullet(GameObject* parent, float x, float y, float radius, float speed, float angle, int damage, sf::Color colour, bool doCollision) {
