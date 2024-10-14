@@ -171,6 +171,13 @@ void GameManager::loadSave() {
         // Loads player score
         std::string score_str;
         user_load >> score_str;
+        if (score_str.substr(0,6) != "score=") {
+            // If the save file is not formatted correctly, resets save.
+            std::cerr << "Save loading error, score not set correctly. \n";
+            score = 0;
+            user_load.close();
+            return;
+        }
         score_str = score_str.substr(6);  // Removing the "score=" part from the line
         score = std::stoi(score_str);
         user_load.close();
