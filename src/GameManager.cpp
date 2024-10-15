@@ -10,6 +10,7 @@
 #include "BoxObject.h"
 #include "CircleObject.h"
 #include "Bullet.h"
+#include "Powerup.h"
 #include <fstream>
 #include <string>
 
@@ -120,6 +121,12 @@ BasicEnemy* GameManager::createBasicEnemy_Single(float x, float y, int health, f
     BasicEnemy* enemy = new BasicEnemy(this, {x, y}, health, speed, weaponCooldown);
     enemies.push_back(enemy);
     return enemy;
+}
+
+Powerup* GameManager::createPowerup(float x, float y) {
+    Powerup* powerup = new Powerup(this, {x, y});
+    objects.push_back(powerup);
+    return powerup;
 }
 
 void GameManager::runGame() {

@@ -11,6 +11,7 @@ int main() {
     GameManager gameManager;
     gameManager.loadSave(); // testing
     gameManager.initHUD(); // testing
+    gameManager.createPowerup(50, 0); // testing
     gameManager.runGame();
 
 

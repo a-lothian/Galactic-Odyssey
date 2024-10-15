@@ -10,7 +10,9 @@ class Powerup : public BoxObject {
     Powerup(GameManager* game, Vector2 pos);
     ~Powerup() {}
 
-    Vector2 velocity;
+    float speed;
+
+    Vector2 pos;
 
     void update(float gametime);
 };
