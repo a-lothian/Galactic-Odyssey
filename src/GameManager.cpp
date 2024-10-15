@@ -10,6 +10,7 @@
 #include "BoxObject.h"
 #include "CircleObject.h"
 #include "Bullet.h"
+#include "Powerup.h"
 #include <fstream>
 #include <string>
 
@@ -128,6 +129,12 @@ BasicEnemy* GameManager::createBasicEnemy_Single(float x, float y, int health, f
     return enemy;
 }
 
+Powerup* GameManager::createPowerup(float x, float y) {
+    Powerup* powerup = new Powerup(this, Powerup::RICOCHET, {x, y});
+    objects.push_back(powerup);
+    return powerup;
+}
+
 void GameManager::runGame() {
     framerate = 60;
     gamespeed = 1 / framerate;
@@ -149,6 +156,8 @@ void GameManager::runGame() {
             seconds++;
             updateTimer(seconds);
         }
+
+        difficulty = (float) seconds / 20;
 
         // Update and render game
 

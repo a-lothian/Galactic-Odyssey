@@ -15,6 +15,7 @@ class BasicEnemy;
 class BoxObject;
 class CircleObject;
 class Bullet;
+class Powerup;
 class EnemyManager;
 
 class GameManager {
@@ -57,6 +58,8 @@ class GameManager {
     BoxObject* createBox(float x, float y, float width, float height, sf::Color colour, bool doCollision = true, bool addToObjects = true);
     CircleObject* createCircle(float x, float y, float radius, sf::Color colour, bool doCollision = true, bool addToObjects = true);
     Bullet* createBullet(GameObject* parent, float x, float y, float radius, float speed, float angle, int damage, sf::Color colour, bool doCollision);
+    Powerup* createPowerup(float x, float y);
+
 
     // Enemy spawning
     BasicEnemy* createBasicEnemy_Single(float x, float y, int health, float speed, float weaponCooldown);

@@ -20,7 +20,9 @@ void EnemyManager::spawnEnemies() {
         clock.restart();
         // base spawn cooldown based on difficulty with randomness
         float difficultyFactor = game->difficulty;
-        spawnCooldown = std::max(0.5f, 2.0f - difficultyFactor * 0.1f + static_cast<float>(rand()) / RAND_MAX * 0.5f);
+        spawnCooldown = std::max(2.5f, 3.5f - difficultyFactor * 0.1f + static_cast<float>(rand()) / RAND_MAX * 0.5f);
+        std::cout << "new spawnCooldown calculated as : " << spawnCooldown << std::endl;
+        std::cout << "spawning enemies" << std::endl;
         for (int i = 0; i < laneNum; ++i) {
             float spawnX = lanePositions[i];
             float spawnY = 0.0f;
@@ -29,7 +31,7 @@ void EnemyManager::spawnEnemies() {
             float baseSpeed = 1.0f;
 
             int health = baseHealth + static_cast<int>(difficultyFactor * 0.5f) + rand() % 2;
-            float speed = baseSpeed + difficultyFactor * 0.1f + static_cast<float>(rand()) / RAND_MAX * 0.5f;
+            float speed = baseSpeed + difficultyFactor * 0.1f + static_cast<float>(rand()) / RAND_MAX * 0.8f;
             float weaponCooldown = 1 / difficultyFactor + static_cast<float>(rand()) / RAND_MAX * 0.5f;
 
             game->createBasicEnemy_Single(spawnX, spawnY, health, speed, weaponCooldown);
