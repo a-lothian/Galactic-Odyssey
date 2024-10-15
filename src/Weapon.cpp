@@ -7,7 +7,7 @@ Weapon::Weapon(GameManager* game, GameObject* parent)
         std::cerr << "Error: GameManager is null! in weapon" << std::endl;
     }
 
-    cooldown = 0.5;
+    cooldown = 0.35;
     bulletsPerShot = 1;
     richochet = false;
     damage = 1;
