@@ -151,6 +151,8 @@ void GameManager::runGame() {
             updateTimer(seconds);
         }
 
+        difficulty = (float) seconds / 20;
+
         // Update and render game
 
         updateGame();
