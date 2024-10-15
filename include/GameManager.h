@@ -45,6 +45,7 @@ class GameManager {
 
     // game variables
     int score;
+    int previousScore;
     float scrollSpeed;
     float difficulty;
 
@@ -94,7 +95,6 @@ class GameManager {
     GameObject* barrierR;
     GameObject* barrierB;
     GameObject* barrierT;
-
 
     // Background
     sf::Texture backgroundTexture;  // Background texture

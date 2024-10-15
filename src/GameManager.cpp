@@ -279,7 +279,11 @@ void GameManager::saveGame() {
         std::cerr << "The saves directory could not be accessed. Game failed to save. \n";
     } else {
         // Will store the name of the player (assuming we ask for name at the start) and their score
-        user_save << "score=" << score << std::endl;
+        if (score > previousScore) {
+            user_save << "score=" << score << std::endl;
+        } else {
+            user_save << "score=" << previousScore << std::endl;
+        }
         // user_save << "name=" << name << std::endl;
         user_save.close();
     }
@@ -297,13 +301,14 @@ void GameManager::loadSave() {
         user_load >> score_str;
         if (score_str.substr(0, 6) != "score=") {
             // If the save file is not formatted correctly, resets save.
-            std::cerr << "Save loading error, score not set correctly. \n";
+            std::cerr << "Save loading error, high score not set correctly. \n";
             score = 0;
             user_load.close();
             return;
         }
         score_str = score_str.substr(6);  // Removing the "score=" part from the line
-        score = std::stoi(score_str);
+        previousScore = std::stoi(score_str);
+        std::cout << "High score is: " << previousScore << std::endl;
         user_load.close();
     }
 }
@@ -362,6 +367,7 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
                 player->health -= 1;
                 enemies[i]->toDelete = true;
                 healthText.setString((std::to_string(player->health)));
+                updateScore(score + 100);
             }
         }
 
