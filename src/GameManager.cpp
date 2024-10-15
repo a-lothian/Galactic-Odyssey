@@ -79,7 +79,6 @@ void GameManager::renderGame() {
     this->window.draw(this->backgroundSprite);
     this->window.draw(this->starSprite1);
     this->window.draw(this->starSprite2);
-    
 
     for (GameObject* object : objects) {
         object->drawObject();
@@ -101,7 +100,6 @@ void GameManager::renderGame() {
     this->window.draw(bulletSprite);
     this->window.draw(healthText);
     this->window.draw(bulletText);
-
 
     this->window.display();
     this->backgroundSprite.move(0, 1 + (10 * difficulty));
@@ -177,6 +175,15 @@ void GameManager::runGame() {
 
         if (player->health < 1) {
             window.close();
+
+            std::cout << "You died! Your Score Was: " << score << "!" << std::endl;
+            std::cout << "Previous Highscore: " << previousScore << "." << std::endl;
+
+            if (score > previousScore) {
+                std::cout << "\nCongratulations! That's a new High Score!" << std::endl;
+            } else {
+                std::cout << "\nUnlucky! Try again for a better score?" << std::endl;
+            }
         }
     }
 }
