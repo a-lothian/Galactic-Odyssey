@@ -16,6 +16,7 @@ class Weapon {
 
     std::string name;
     int damage;
+    float cooldown;
     bool shootCooldownOver();  // Returns true if cooldown is over
     void shoot();
 
@@ -25,6 +26,5 @@ class Weapon {
    private:
     sf::Clock clock;
     sf::Time elapsed;
-    float cooldown;
 };
 #endif

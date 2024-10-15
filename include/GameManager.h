@@ -15,6 +15,7 @@ class BasicEnemy;
 class BoxObject;
 class CircleObject;
 class Bullet;
+class EnemyManager;
 
 class GameManager {
    public:
@@ -33,6 +34,7 @@ class GameManager {
     // game classes
     Player* player;
     InputManager* inputManager;
+    EnemyManager* enemyManager;
 
     std::vector<GameObject*> objects;
     std::vector<BasicEnemy*> enemies;
@@ -57,7 +59,7 @@ class GameManager {
     Bullet* createBullet(GameObject* parent, float x, float y, float radius, float speed, float angle, int damage, sf::Color colour, bool doCollision);
 
     // Enemy spawning
-    BasicEnemy* createBasicEnemy_Single(float x, float y);
+    BasicEnemy* createBasicEnemy_Single(float x, float y, int health, float speed, float weaponCooldown);
     // void createEnemy_3_Cluster(Vector2 pos);
     // void createEnemy_3_Line(Vector2 pos);
 

@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "GameManager.h"
 #include "InputManager.h"
+#include "EnemyManager.h"
+
 #include "GameObject.h"
 #include "Player.h"
 #include "BasicEnemy.h"
@@ -17,6 +19,7 @@ GameManager::GameManager()
     player = new Player(this);
     objects.push_back(player);
     inputManager = new InputManager(player);
+    enemyManager = new EnemyManager(this);
 
     // create test objects
     BoxObject* barrierL = createBox(565, 400, 100, 100000, sf::Color::Red, true, false);
@@ -113,8 +116,8 @@ CircleObject* GameManager::createCircle(float x, float y, float radius, sf::Colo
     return circle;
 }
 
-BasicEnemy* GameManager::createBasicEnemy_Single(float x, float y) {
-    BasicEnemy* enemy = new BasicEnemy(this, {x, y});
+BasicEnemy* GameManager::createBasicEnemy_Single(float x, float y, int health, float speed, float weaponCooldown) {
+    BasicEnemy* enemy = new BasicEnemy(this, {x, y}, health, speed, weaponCooldown);
     enemies.push_back(enemy);
     return enemy;
 }
@@ -257,6 +260,9 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
         for (u_long i = 0; i < objects.size(); i++) {
             objects[i]->update(sub_dt);
         }
+        for (u_long i = 0; i < enemies.size(); i++) {
+            enemies[i]->update(sub_dt);
+        }
 
         for (u_long i = 0; i < objects.size(); i++) {
             for (u_long j = i + 1; j < objects.size(); j++) {
@@ -293,6 +299,7 @@ void GameManager::updateGame() {
     // Do events
 
     player->applyImpulse(inputManager->Direction);  // Move player
+    enemyManager->spawnEnemies();
 
     if (inputManager->space) {
         player->shootWeapon();

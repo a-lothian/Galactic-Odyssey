@@ -1,8 +1,10 @@
 #include "BasicEnemy.h"
 
-BasicEnemy::BasicEnemy(GameManager* game, Vector2 pos)
-    : BoxObject(game), health(3), speed(2) {
+BasicEnemy::BasicEnemy(GameManager* game, Vector2 pos, int health, float speed, float weaponCooldown)
+    : BoxObject(game), health(health), speed(speed), pos(pos) {
     currentWeapon = new Weapon(game, this);
+    currentWeapon->cooldown = weaponCooldown;
+
     initTexture("assets/enemy1.png");
     initSprite();
     sprite.scale(0.2f, 0.2f);

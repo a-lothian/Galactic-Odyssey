@@ -8,13 +8,14 @@
 
 class BasicEnemy : public BoxObject {
    public:
-    BasicEnemy(GameManager* game, Vector2 pos);
+    BasicEnemy(GameManager* game, Vector2 pos, int health, float speed, float weaponCooldown);
     ~BasicEnemy() {};
 
     int health;
     float speed;
 
     Weapon* currentWeapon;
+    Vector2 pos;
     Vector2 velocity;
 
     void update(float gametime);
