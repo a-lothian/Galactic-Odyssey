@@ -198,3 +198,10 @@ void BoxObject::resolveCollision(GameObject* other) {
         std::cout << "Collision type not implemented\n";
     }
 }
+
+bool BoxObject::isWithinBounds(int xres, int yres) {
+    if (pos.x + width < 0 || pos.y + height < 0 || pos.x - width > xres || pos.y - height > yres) {
+        return false;
+    }
+    return true;
+}

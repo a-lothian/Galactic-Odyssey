@@ -178,3 +178,10 @@ void CircleObject::resolveCollision(GameObject* other) {
         std::cout << "Collision type not implemented, not ball vs ball\n";
     }
 }
+
+bool CircleObject::isWithinBounds(int xres, int yres) {
+    if (pos.x + radius < 0 || pos.y + radius < 0 || pos.x - radius > xres || pos.y - radius > yres) {
+        return 0;
+    }
+    return 1;
+}

@@ -12,8 +12,6 @@ Weapon::Weapon(GameManager* game, GameObject* parent)
     richochet = false;
 }
 
-Weapon::~Weapon() {}
-
 bool Weapon::shootCooldownOver() {
     // Weapon cooldown logic
 

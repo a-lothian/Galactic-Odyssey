@@ -17,6 +17,7 @@ class GameObject {
 
     virtual bool isColliding(GameObject* other) = 0;
     virtual void resolveCollision(GameObject* other) = 0;
+    virtual bool isWithinBounds(int xres, int yres) = 0;
 
     GameManager* game;
     Vector2 pos;

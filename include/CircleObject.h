@@ -21,6 +21,8 @@ class CircleObject : public GameObject {
     bool isColliding(GameObject* other) override;
     void resolveCollision(GameObject* other) override;
 
+    bool isWithinBounds(int xres, int yres) override;
+
     float radius;
 
    protected:

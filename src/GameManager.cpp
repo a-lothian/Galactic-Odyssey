@@ -202,6 +202,7 @@ void GameManager::updateGame() {
         1. Check inputs
         2. Do events (spawning stuff, AI logic, ect)
         3. Simulate objects (movement, collisions, ect)
+        4. Cull objects outside window
     */
     //  Handle input
     inputManager->CheckInputs();
@@ -214,10 +215,13 @@ void GameManager::updateGame() {
         player->shootWeapon();
     }
 
-    for (u_long i = 0; i < objects.size(); i++) {  // simulate all objects 1 frame
-    }
-
     // Check collisions + resolve collisions
 
     HandleCollisions(1, 8);  // 1 frame of collision resolution with 8 substeps
+    for (GameObject* thing : objects) {
+        if (thing->isWithinBounds(500, 800)) {
+            std::cout << "Object out of bounds" << std::endl;
+            // objects.erase(std::remove(objects.begin(), objects.end(), thing), objects.end());  // Erase object from list
+        }
+    }
 }
