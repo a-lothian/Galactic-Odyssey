@@ -9,7 +9,7 @@
 class Player : public BoxObject {
    public:
     Player(GameManager* game);
-    ~Player();
+    ~Player() override {};
 
     int health;
     float impulseStrength;

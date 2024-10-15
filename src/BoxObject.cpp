@@ -200,10 +200,13 @@ void BoxObject::resolveCollision(GameObject* other) {
 }
 
 bool BoxObject::isWithinBounds(int xres, int yres) {
+    const float margin = 15.0f;
     float halfWidth = width / 2;
     float halfHeight = height / 2;
 
-    if (pos.x + halfWidth < 0 || pos.y + halfHeight < 0 || pos.x - halfWidth > xres || pos.y - halfHeight > yres) {
+    // check if the box is outside the bounds with a margin
+    if (pos.x + halfWidth < -margin || pos.y + halfHeight < -margin ||
+        pos.x - halfWidth > xres + margin || pos.y - halfHeight > yres + margin) {
         return true;
     }
     return false;

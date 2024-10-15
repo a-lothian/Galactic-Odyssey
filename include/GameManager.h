@@ -47,6 +47,7 @@ class GameManager {
     // Game loop
     void toString();
     void HandleCollisions(float gametime, int substeps);
+    void cullOutOfBounds();
     void updateGame();
     void renderGame();
 

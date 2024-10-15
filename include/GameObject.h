@@ -8,7 +8,7 @@
 class GameObject {
    public:
     GameObject(GameManager* parent);
-    ~GameObject() {};
+    virtual ~GameObject() {};
 
     virtual void SetPosition(Vector2 newPos) = 0;
     virtual void drawObject() const = 0;

@@ -180,7 +180,11 @@ void CircleObject::resolveCollision(GameObject* other) {
 }
 
 bool CircleObject::isWithinBounds(int xres, int yres) {
-    if (pos.x + radius < 0 || pos.y + radius < 0 || pos.x - radius > xres || pos.y - radius > yres) {
+    const float margin = 15.0f;
+
+    // check if the circle is fully the bounds with a margin
+    if (pos.x + radius < -margin || pos.y + radius < -margin ||
+        pos.x - radius > xres + margin || pos.y - radius > yres + margin) {
         return true;
     }
     return false;

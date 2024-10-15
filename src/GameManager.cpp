@@ -269,6 +269,16 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
     }
 }
 
+void GameManager::cullOutOfBounds() {
+    for (int i = 0; i < objects.size(); i++) {
+        if (objects[i]->isWithinBounds(500, 800)) {
+            delete objects[i];
+            objects.erase(objects.begin() + i);
+            i--;
+        }
+    }
+}
+
 void GameManager::updateGame() {
     /*
         General approach:
@@ -288,15 +298,7 @@ void GameManager::updateGame() {
         player->shootWeapon();
     }
 
-    // Check collisions + resolve collisions
-
     HandleCollisions(1, 8);  // 1 frame of collision resolution with 8 substeps
 
-    // std::cout << "Player out of bounds: " << player->isWithinBounds(500, 800) << std::endl;
-
-    for (GameObject* thing : objects) {
-        if (thing->isWithinBounds(500, 800)) {
-            objects.erase(std::remove(objects.begin(), objects.end(), thing), objects.end());  // Erase object from list                                                                    // Free memory
-        }
-    }
+    cullOutOfBounds();  // remove objects that are out of bounds
 }
