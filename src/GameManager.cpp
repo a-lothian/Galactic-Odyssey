@@ -19,11 +19,16 @@ GameManager::GameManager()
     inputManager = new InputManager(player);
 
     // create test objects
-    BoxObject* barrierL = createBox(565, 400, 100, 1000, sf::Color::Red, true);
-    BoxObject* barrierR = createBox(-65, 400, 100, 1000, sf::Color::Red, true);
+    BoxObject* barrierL = createBox(565, 400, 100, 100000, sf::Color::Red, true);
+    BoxObject* barrierR = createBox(-65, 400, 100, 100000, sf::Color::Red, true);
+
+    // Top + Bottom barriers shouldn't collide with bullets, enemies
+    BoxObject* barrierB = createBox(250, 865, 500, 100, sf::Color::Green, false);
+    BoxObject* barrierT = createBox(250, -65, 500, 100, sf::Color::Green, false);
 
     barrierL->dynamic = true;
     barrierR->dynamic = true;
+    barrierB->dynamic = true;
 
     initBackgroud();
 }
@@ -32,7 +37,7 @@ void GameManager::initBackgroud() {
     if (!this->backgroundTexture.loadFromFile("assets/background.jpg")) {
         std::cout << "Error loading background file." << std::endl;
     }
-    if (!this->starTexture.loadFromFile("assets/background_star.jpg"))  {
+    if (!this->starTexture.loadFromFile("assets/background_star.jpg")) {
         std::cout << "Error loading star file." << std::endl;
     }
     this->backgroundSprite.setTexture(this->backgroundTexture);
@@ -45,7 +50,7 @@ void GameManager::initBackgroud() {
     this->starSprite2.setPosition(-700, -445 - this->starSprite1.getGlobalBounds().height - 1285);
 }
 
-void GameManager::repeatStar()  {
+void GameManager::repeatStar() {
     if (this->starSprite1.getPosition().y >= this->window.getSize().y) {
         this->starSprite1.setPosition(-700, -445 - this->starSprite1.getGlobalBounds().height);
     }
@@ -134,10 +139,10 @@ void GameManager::runGame() {
             timer.restart();
             seconds++;
             updateTimer(seconds);
-        } 
+        }
 
         // Update and render game
-        
+
         updateGame();
         renderGame();
     }
@@ -193,7 +198,7 @@ void GameManager::updateTimer(int newSeconds) {
         time_check.append("0");
     }
     time_check.append(std::to_string(remainingSeconds));
-    
+
     timer_text.setString(time_check);
 }
 
@@ -231,7 +236,7 @@ void GameManager::loadSave() {
         // Loads player score
         std::string score_str;
         user_load >> score_str;
-        if (score_str.substr(0,6) != "score=") {
+        if (score_str.substr(0, 6) != "score=") {
             // If the save file is not formatted correctly, resets save.
             std::cerr << "Save loading error, score not set correctly. \n";
             score = 0;
