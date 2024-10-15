@@ -30,12 +30,31 @@ GameManager::GameManager()
 
 void GameManager::initBackgroud() {
     if (!this->backgroundTexture.loadFromFile("assets/background.jpg")) {
-        std::cout << "Error loading file." << std::endl;
+        std::cout << "Error loading background file." << std::endl;
     }
-    this->backgroundTexture.setRepeated(true);
+    if (!this->starTexture.loadFromFile("assets/background_star.jpg"))  {
+        std::cout << "Error loading star file." << std::endl;
+    }
     this->backgroundSprite.setTexture(this->backgroundTexture);
-    this->backgroundSprite.setOrigin(960, 500);
+    this->backgroundSprite.setPosition(-700, -475);
+
+    this->starTexture.setRepeated(true);
+    this->starSprite1.setTexture(this->starTexture);
+    this->starSprite2.setTexture(this->starTexture);
+    this->starSprite1.setPosition(-700, -445 - this->backgroundSprite.getGlobalBounds().height);
+    this->starSprite2.setPosition(-700, -445 - this->starSprite1.getGlobalBounds().height - 1285);
 }
+
+void GameManager::repeatStar()  {
+    if (this->starSprite1.getPosition().y >= this->window.getSize().y) {
+        this->starSprite1.setPosition(-700, -445 - this->starSprite1.getGlobalBounds().height);
+    }
+
+    if (this->starSprite2.getPosition().y >= this->window.getSize().y) {
+        this->starSprite2.setPosition(-700, -445 - this->starSprite2.getGlobalBounds().height);
+    }
+}
+
 void GameManager::toString() {
     for (GameObject* object : objects) {
         std::cout << object->toString() << std::endl;
@@ -45,6 +64,8 @@ void GameManager::toString() {
 void GameManager::renderGame() {
     this->window.clear();
     this->window.draw(this->backgroundSprite);
+    this->window.draw(this->starSprite1);
+    this->window.draw(this->starSprite2);
 
     for (GameObject* object : objects) {
         if (object->render) {
@@ -56,9 +77,13 @@ void GameManager::renderGame() {
     }
 
     this->window.draw(score_text);
+    this->window.draw(timer_text);
 
     this->window.display();
-    this->backgroundSprite.move(0, 0.5f);
+    this->backgroundSprite.move(0, 20);
+    this->starSprite1.move(0, 20);
+    this->starSprite2.move(0, 20);
+    repeatStar();
 }
 
 BoxObject* GameManager::createBox(float x, float y, float width, float height, sf::Color colour, bool doCollision) {
@@ -92,6 +117,7 @@ BasicEnemy* GameManager::createBasicEnemy_Single(float x, float y) {
 void GameManager::runGame() {
     framerate = 60;
     gamespeed = 1 / framerate;
+    seconds = 0;
     window.setFramerateLimit(framerate);
 
     while (window.isOpen()) {
@@ -103,16 +129,28 @@ void GameManager::runGame() {
             }
         }
 
+        // Updates the timer in seconds
+        if (timer.getElapsedTime().asSeconds() >= 1) {
+            timer.restart();
+            seconds++;
+            updateTimer(seconds);
+        } 
+
         // Update and render game
+        
         updateGame();
         renderGame();
     }
 }
 
 void GameManager::initHUD() {
-    std::string score_check = "Score: ";
-    score_check.append(std::to_string(score));
-    score_text = createText(score_check, 25, sf::Color::White, {350, 20});
+    seconds = 0;
+    std::string ui_score = "Score: ";
+    std::string ui_timer = "Time: ";
+    ui_score.append(std::to_string(score));
+    score_text = createText(ui_score, 25, sf::Color::White, {30, 20});
+    timer_text = createText(ui_timer, 25, sf::Color::White, {340, 20});
+    updateTimer(seconds);
 }
 
 sf::Text GameManager::createText(std::string str, int characterSize, sf::Color fillColour, sf::Vector2f position) {
@@ -127,6 +165,8 @@ sf::Text GameManager::createText(std::string str, int characterSize, sf::Color f
     text.setCharacterSize(characterSize);
     text.setFillColor(fillColour);
     text.setPosition(position);
+    text.setOutlineThickness(4.0f);
+    text.setOutlineColor(sf::Color::Black);
     return text;
 }
 
@@ -135,6 +175,26 @@ void GameManager::updateScore(int newScore) {
     std::string score_check = "Score: ";
     score_check.append(std::to_string(score));
     score_text.setString(score_check);
+}
+
+void GameManager::updateTimer(int newSeconds) {
+    seconds = newSeconds;
+    int minutes = seconds / 60;
+    int remainingSeconds = seconds % 60;
+
+    // Formatting the time
+    std::string time_check = "Time: ";
+    if (seconds < 600) {
+        time_check.append("0");
+    }
+    time_check.append(std::to_string(minutes));
+    time_check.append(":");
+    if (remainingSeconds < 10) {
+        time_check.append("0");
+    }
+    time_check.append(std::to_string(remainingSeconds));
+    
+    timer_text.setString(time_check);
 }
 
 Bullet* GameManager::createBullet(GameObject* parent, float x, float y, float radius, float speed, float angle, int damage, sf::Color colour, bool doCollision) {
@@ -171,6 +231,13 @@ void GameManager::loadSave() {
         // Loads player score
         std::string score_str;
         user_load >> score_str;
+        if (score_str.substr(0,6) != "score=") {
+            // If the save file is not formatted correctly, resets save.
+            std::cerr << "Save loading error, score not set correctly. \n";
+            score = 0;
+            user_load.close();
+            return;
+        }
         score_str = score_str.substr(6);  // Removing the "score=" part from the line
         score = std::stoi(score_str);
         user_load.close();
