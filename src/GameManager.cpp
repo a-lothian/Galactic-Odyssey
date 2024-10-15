@@ -332,6 +332,7 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
                 switch (powerups[i]->power) {
                 case Powerup::powerupType::ADDBULLET: {
                     player->currentWeapon->bulletsPerShot += 1;
+                    bulletText.setString((std::to_string(player->currentWeapon->bulletsPerShot)));
                     break;
                 }
                 case Powerup::powerupType::FIRERATE: {
@@ -353,6 +354,7 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
             if (enemies[i]->pos.y > 810) {
                 player->health -= 1;
                 enemies[i]->toDelete = true;
+                healthText.setString((std::to_string(player->health)));
             }
         }
 

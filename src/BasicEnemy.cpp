@@ -9,7 +9,7 @@ BasicEnemy::BasicEnemy(GameManager* game, Vector2 pos, int health, float speed, 
 
     toDelete = false;
 
-    initTexture("assets/enemy1.png");
+    initTexture("assets/enemy.png");
     initSprite();
     sprite.scale(0.2f, 0.2f);
     sprite.setOrigin(190, 100);
