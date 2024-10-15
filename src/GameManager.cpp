@@ -124,7 +124,7 @@ BasicEnemy* GameManager::createBasicEnemy_Single(float x, float y, int health, f
 }
 
 Powerup* GameManager::createPowerup(float x, float y) {
-    Powerup* powerup = new Powerup(this, {x, y});
+    Powerup* powerup = new Powerup(this, Powerup::RICOCHET, {x, y});
     objects.push_back(powerup);
     return powerup;
 }

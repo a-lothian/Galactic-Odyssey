@@ -1,8 +1,23 @@
 #include "Powerup.h"
 #include "BoxObject.h"
 
-Powerup::Powerup(GameManager* game, Vector2 pos) : BoxObject(game), pos(pos) {
-    initTexture("assets/powerup.png");
+Powerup::Powerup(GameManager* game, powerupType power, Vector2 pos) : BoxObject(game), power(power), pos(pos) {
+    
+    switch (power) { 
+        case ADDBULLET: {
+            initTexture("assets/powerup.png");
+            break;
+        }
+        case FIRERATE: {
+            initTexture("assets/lowercooldown.png");
+            break;
+        }
+        case RICOCHET: {
+            initTexture("assets/ricochet.png");
+            break;
+        }
+    }
+
     initSprite();
     sprite.scale(1.5f, 1.5f);
     sprite.setOrigin(0, 0);;

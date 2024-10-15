@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "BoxObject.h"
 #include "CircleObject.h"
+#include "Powerup.h"
 
 #define X_RES 500
 #define Y_RES 800
