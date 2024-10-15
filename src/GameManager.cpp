@@ -82,18 +82,16 @@ void GameManager::renderGame() {
     
 
     for (GameObject* object : objects) {
-        // if (object->render) {
         object->drawObject();
-        // }
     }
-
-    // std::cout << "render bullets size: " << bullets.size() << std::endl;
-    // std::cout << "bullets address from renderer: " << &bullets << std::endl;
     for (Bullet* bullet : bullets) {
         bullet->drawObject();
     }
     for (BasicEnemy* enemy : enemies) {
         enemy->drawObject();
+    }
+    for (Powerup* powerup : powerups) {
+        powerup->drawObject();
     }
 
     this->window.draw(HUDrect);
@@ -106,9 +104,9 @@ void GameManager::renderGame() {
 
 
     this->window.display();
-    this->backgroundSprite.move(0, 5);
-    this->starSprite1.move(0, 5);
-    this->starSprite2.move(0, 5);
+    this->backgroundSprite.move(0, 1 + (10 * difficulty));
+    this->starSprite1.move(0, 1 + (10 * difficulty));
+    this->starSprite2.move(0, 1 + (10 * difficulty));
     repeatStar();
 }
 
@@ -144,7 +142,7 @@ Powerup* GameManager::createPowerup(float x, float y) {
     std::srand(static_cast<unsigned>(std::time(0)));
     int randomIndex = std::rand() % 3;
     Powerup* powerup = new Powerup(this, static_cast<Powerup::powerupType>(randomIndex), {x, y});
-    objects.push_back(powerup);
+    powerups.push_back(powerup);
     return powerup;
 }
 
@@ -176,6 +174,10 @@ void GameManager::runGame() {
 
         updateGame();
         renderGame();
+
+        if (player->health < 1) {
+            window.close();
+        }
     }
 }
 
@@ -260,11 +262,6 @@ Bullet* GameManager::createBullet(GameObject* parent, float x, float y, float ra
     Bullet* bullet = new Bullet(this, parent, {parent->pos.x, parent->pos.y}, radius, speed, angle, damage, colour);
 
     bullets.push_back(bullet);
-    // std::cout << "bullets address from single bullet creation (game manager): " << &bullets << std::endl;
-
-    // if (doCollision) {
-    //     colliders.push_back(bullet);
-    // }
     return bullet;
 }
 
@@ -326,6 +323,36 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
                 if (isColliding && objects[i]->isPhysics && objects[j]->isPhysics) {
                     objects[i]->resolveCollision(objects[j]);
                 }
+            }
+        }
+
+        for (u_long i = 0; i < powerups.size(); i++) {
+            bool isColliding = powerups[i]->pos.distance(player->pos) < 70;
+            if (isColliding) {
+                switch (powerups[i]->power) {
+                case Powerup::powerupType::ADDBULLET: {
+                    player->currentWeapon->bulletsPerShot += 1;
+                    break;
+                }
+                case Powerup::powerupType::FIRERATE: {
+                    player->currentWeapon->cooldown *= 0.8f;
+                    break;
+                }
+                case Powerup::powerupType::DAMAGE: {
+                    player->currentWeapon->damage += 1;
+                    break;
+                }
+                }
+                delete powerups[i];
+                powerups.erase(powerups.begin() + i);
+                i--;
+            }
+        }
+
+        for (u_long i = 0; i < enemies.size(); i++) {
+            if (enemies[i]->pos.y > 810) {
+                player->health -= 1;
+                enemies[i]->toDelete = true;
             }
         }
 

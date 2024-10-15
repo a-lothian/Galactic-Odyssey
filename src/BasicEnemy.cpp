@@ -18,7 +18,6 @@ BasicEnemy::BasicEnemy(GameManager* game, Vector2 pos, int health, float speed, 
 }
 
 BasicEnemy::~BasicEnemy() {
-    std::srand(static_cast<unsigned>(std::time(0)));
     int randomIndex = std::rand() % 4;
     if (randomIndex == 3) {
         game->createPowerup(pos.x, pos.y);

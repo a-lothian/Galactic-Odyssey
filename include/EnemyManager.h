@@ -9,7 +9,7 @@
 class EnemyManager {
    public:
     EnemyManager(GameManager* Pgame);
-    ~EnemyManager();
+    ~EnemyManager() {};
 
     void spawnEnemies();
 

@@ -9,7 +9,7 @@
 class Weapon {
    public:
     Weapon(GameManager* game, GameObject* parent);
-    ~Weapon();
+    ~Weapon() {};
 
     GameManager* game;
     GameObject* parent;
