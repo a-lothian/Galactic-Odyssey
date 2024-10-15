@@ -157,7 +157,7 @@ void GameManager::runGame() {
             updateTimer(seconds);
         }
 
-        difficulty = (float) seconds / 20;
+        difficulty = (float)seconds / 20;
 
         // Update and render game
 
@@ -281,6 +281,16 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
         }
         for (BasicEnemy* enemy : enemies) {
             enemy->update(sub_dt);
+        }
+
+        // Handle collisions between objects
+        for (u_long i = 0; i < objects.size(); i++) {
+            for (u_long j = i + 1; j < objects.size(); j++) {
+                bool isColliding = objects[i]->isColliding(objects[j]);
+                if (isColliding && objects[i]->isPhysics && objects[j]->isPhysics) {
+                    objects[i]->resolveCollision(objects[j]);
+                }
+            }
         }
 
         // Handle collisions between bullets and enemies
