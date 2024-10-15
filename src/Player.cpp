@@ -4,7 +4,7 @@
 #include "CircleObject.h"
 
 Player::Player(GameManager* game)
-    : BoxObject(game), health(100), impulseStrength(5.0f), mass(4), dampening(0.99f) {
+    : BoxObject(game), health(5), impulseStrength(5.0f), mass(4), dampening(0.99f) {
     if (game == nullptr) {
         std::cerr << "Error: GameManager is null in Player!" << std::endl;
     }
