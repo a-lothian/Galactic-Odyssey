@@ -7,11 +7,10 @@
 
 class Powerup : public BoxObject {
    public:
-
-       enum powerupType {  // Powerup types
+    enum powerupType {  // Powerup types
         ADDBULLET,
         FIRERATE,
-        RICOCHET
+        DAMAGE
     };
 
     Powerup(GameManager* game, powerupType power, Vector2 pos);
@@ -21,8 +20,6 @@ class Powerup : public BoxObject {
     powerupType power;
 
     Vector2 pos;
-
-
 
     void update(float gametime);
 };

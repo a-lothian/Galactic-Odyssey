@@ -4,7 +4,6 @@
 BoxObject::BoxObject(GameManager* game)  // Default Debug Constructor
     : GameObject(game), width(25), height(25), shape(sf::Vector2f(width, height)), colour(sf::Color::Red) {
     pos = {0, 0};
-    std::cout << "BoxObject | Standard constructor called" << std::endl;
 }
 
 BoxObject::BoxObject(GameManager* game, Vector2 pos, float width, float height, sf::Color colour)

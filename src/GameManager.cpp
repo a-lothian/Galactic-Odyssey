@@ -1,4 +1,6 @@
 #include <SFML/Graphics.hpp>
+#include <cstdlib>
+#include <ctime>
 #include "GameManager.h"
 #include "InputManager.h"
 #include "EnemyManager.h"
@@ -130,7 +132,9 @@ BasicEnemy* GameManager::createBasicEnemy_Single(float x, float y, int health, f
 }
 
 Powerup* GameManager::createPowerup(float x, float y) {
-    Powerup* powerup = new Powerup(this, Powerup::RICOCHET, {x, y});
+    std::srand(static_cast<unsigned>(std::time(0)));
+    int randomIndex = std::rand() % 3;
+    Powerup* powerup = new Powerup(this, static_cast<Powerup::powerupType>(randomIndex), {x, y});
     objects.push_back(powerup);
     return powerup;
 }

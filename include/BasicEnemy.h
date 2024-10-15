@@ -5,11 +5,12 @@
 #include "GameManager.h"
 #include "Weapon.h"
 #include "vector2.h"
+#include "Powerup.h"
 
 class BasicEnemy : public BoxObject {
    public:
     BasicEnemy(GameManager* game, Vector2 pos, int health, float speed, float weaponCooldown);
-    ~BasicEnemy() {};
+    ~BasicEnemy();
 
     int health;
     float speed;
