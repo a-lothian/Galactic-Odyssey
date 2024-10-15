@@ -367,7 +367,6 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
                 player->health -= 1;
                 enemies[i]->toDelete = true;
                 healthText.setString((std::to_string(player->health)));
-                updateScore(score + 100);
             }
         }
 
@@ -391,6 +390,8 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
 
                     // Mark enemy for deletion if health is zero or less
                     if (check_enemy->health <= 0) {
+                        int scorething = score + 100;
+                        updateScore(scorething);
                         check_enemy->toDelete = true;
                     }
 
