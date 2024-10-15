@@ -20,7 +20,6 @@ GameManager::GameManager()
     player = new Player(this);
     objects.push_back(player);
     inputManager = new InputManager(player);
-    enemyManager = new EnemyManager(this);
 
     // create test objects
     BoxObject* barrierL = createBox(565, 400, 100, 100000, sf::Color::Red, true, false);
