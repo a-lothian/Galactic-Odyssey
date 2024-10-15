@@ -17,7 +17,11 @@ void printNewLines(int num) {
 int main() {
     printNewLines(50);
     std::cout << "Hello!\nWelcome to Galactic Odyssey!" << std::endl;
-    std::cout << "Use the arrow keys to move and spacebar to shoot." << std::endl;
+    std::cout << "Use the arrow keys to move the spaceship and spacebar to shoot." << std::endl;
+    std::cout << "Health will decrease when enemy spaceship reaches the bottom of the window." << std::endl;
+    std::cout << "You can collect powerups to increase your bullet count, fire rate, and damage." << std::endl;
+    std::cout << "Your health and bullet count is shown at the bottom right. " << std::endl;
+    
     printNewLines(3);
     std::cout << "Would you like to play? (y/n)" << std::endl;
 
