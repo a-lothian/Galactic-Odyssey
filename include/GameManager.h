@@ -30,14 +30,6 @@ class GameManager {
     int framerate;
     float gamespeed;
 
-    sf::Texture backgroundTexture;  // Background texture
-    sf::Sprite backgroundSprite;    // Background sprite
-    sf::Texture starTexture;        // Star texture
-    sf::Sprite starSprite1;          // Star sprite 
-    sf::Sprite starSprite2;          // Second star sprite
-    void initBackgroud();           // Initializes background
-    void repeatStar();              // Repeats the star
-
     // game classes
     Player* player;
     InputManager* inputManager;
@@ -59,16 +51,14 @@ class GameManager {
     void renderGame();
 
     // Object creation, adds objects to objects and collisions if required
-    BoxObject* createBox(float x, float y, float width, float height, sf::Color colour, bool doCollision);
-    CircleObject* createCircle(float x, float y, float radius, sf::Color colour, bool doCollision);
+    BoxObject* createBox(float x, float y, float width, float height, sf::Color colour, bool doCollision = true, bool addToObjects = true);
+    CircleObject* createCircle(float x, float y, float radius, sf::Color colour, bool doCollision = true, bool addToObjects = true);
+    Bullet* createBullet(GameObject* parent, float x, float y, float radius, float speed, float angle, int damage, sf::Color colour, bool doCollision);
 
     // Enemy spawning
     BasicEnemy* createBasicEnemy_Single(float x, float y);
     // void createEnemy_3_Cluster(Vector2 pos);
     // void createEnemy_3_Line(Vector2 pos);
-
-    // Bullet Creation
-    Bullet* createBullet(GameObject* parent, float x, float y, float radius, float speed, float angle, int damage, sf::Color colour, bool doCollision);
 
     void printObjectSize() { std::cout << "Objects size: " << objects.size() << std::endl; }
 
@@ -83,13 +73,24 @@ class GameManager {
     int seconds;
     sf::Clock timer;
 
+    // Barriers
+    GameObject* barrierL;
+    GameObject* barrierR;
+    GameObject* barrierB;
+    GameObject* barrierT;
+
+    sf::Texture backgroundTexture;  // Background texture
+    sf::Sprite backgroundSprite;    // Background sprite
+    sf::Texture starTexture;        // Star texture
+    sf::Sprite starSprite1;         // Star sprite
+    sf::Sprite starSprite2;         // Second star sprite
+    void initBackgroud();           // Initializes background
+    void repeatStar();              // Repeats the star
+
     void initHUD();
     sf::Text createText(std::string str, int characterSize, sf::Color fillColour, sf::Vector2f position);
     void updateScore(int newScore);
     void updateTimer(int newSeconds);
-
-
-
 };
 
 #endif

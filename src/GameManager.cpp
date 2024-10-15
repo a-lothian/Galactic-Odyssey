@@ -19,12 +19,12 @@ GameManager::GameManager()
     inputManager = new InputManager(player);
 
     // create test objects
-    BoxObject* barrierL = createBox(565, 400, 100, 100000, sf::Color::Red, true);
-    BoxObject* barrierR = createBox(-65, 400, 100, 100000, sf::Color::Red, true);
+    BoxObject* barrierL = createBox(565, 400, 100, 100000, sf::Color::Red, true, false);
+    BoxObject* barrierR = createBox(-65, 400, 100, 100000, sf::Color::Red, true, false);
 
     // Top + Bottom barriers shouldn't collide with bullets, enemies
-    BoxObject* barrierB = createBox(250, 865, 500, 100, sf::Color::Green, false);
-    BoxObject* barrierT = createBox(250, -65, 500, 100, sf::Color::Green, false);
+    BoxObject* barrierB = createBox(250, 865, 500, 100, sf::Color::Green, false, false);
+    BoxObject* barrierT = createBox(250, -65, 500, 100, sf::Color::Green, false, false);
 
     barrierL->dynamic = true;
     barrierR->dynamic = true;
@@ -91,7 +91,7 @@ void GameManager::renderGame() {
     repeatStar();
 }
 
-BoxObject* GameManager::createBox(float x, float y, float width, float height, sf::Color colour, bool doCollision) {
+BoxObject* GameManager::createBox(float x, float y, float width, float height, sf::Color colour, bool doCollision, bool addToObjects) {
     BoxObject* box = new BoxObject(this, {x, y}, width, height, colour);
 
     objects.push_back(box);
@@ -102,7 +102,7 @@ BoxObject* GameManager::createBox(float x, float y, float width, float height, s
     return box;
 }
 
-CircleObject* GameManager::createCircle(float x, float y, float radius, sf::Color colour, bool doCollision) {
+CircleObject* GameManager::createCircle(float x, float y, float radius, sf::Color colour, bool doCollision, bool addToObjects) {
     CircleObject* circle = new CircleObject(this, {x, y}, radius, colour);
 
     objects.push_back(circle);
@@ -206,6 +206,7 @@ Bullet* GameManager::createBullet(GameObject* parent, float x, float y, float ra
     Bullet* bullet = new Bullet(this, parent, {parent->pos.x, parent->pos.y}, radius, speed, angle, damage, colour);
 
     objects.push_back(bullet);
+    bullets.push_back(bullet);
 
     if (doCollision) {
         colliders.push_back(bullet);
@@ -290,10 +291,12 @@ void GameManager::updateGame() {
     // Check collisions + resolve collisions
 
     HandleCollisions(1, 8);  // 1 frame of collision resolution with 8 substeps
+
+    // std::cout << "Player out of bounds: " << player->isWithinBounds(500, 800) << std::endl;
+
     for (GameObject* thing : objects) {
         if (thing->isWithinBounds(500, 800)) {
-            std::cout << "Object out of bounds" << std::endl;
-            // objects.erase(std::remove(objects.begin(), objects.end(), thing), objects.end());  // Erase object from list
+            objects.erase(std::remove(objects.begin(), objects.end(), thing), objects.end());  // Erase object from list                                                                    // Free memory
         }
     }
 }

@@ -181,7 +181,7 @@ void CircleObject::resolveCollision(GameObject* other) {
 
 bool CircleObject::isWithinBounds(int xres, int yres) {
     if (pos.x + radius < 0 || pos.y + radius < 0 || pos.x - radius > xres || pos.y - radius > yres) {
-        return 0;
+        return true;
     }
-    return 1;
+    return false;
 }

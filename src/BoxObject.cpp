@@ -200,8 +200,11 @@ void BoxObject::resolveCollision(GameObject* other) {
 }
 
 bool BoxObject::isWithinBounds(int xres, int yres) {
-    if (pos.x + width < 0 || pos.y + height < 0 || pos.x - width > xres || pos.y - height > yres) {
-        return false;
+    float halfWidth = width / 2;
+    float halfHeight = height / 2;
+
+    if (pos.x + halfWidth < 0 || pos.y + halfHeight < 0 || pos.x - halfWidth > xres || pos.y - halfHeight > yres) {
+        return true;
     }
-    return true;
+    return false;
 }
