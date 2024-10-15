@@ -8,7 +8,7 @@
 
 class EnemyManager {
    public:
-    EnemyManager(GameManager* game);
+    EnemyManager(GameManager* Pgame);
     ~EnemyManager();
 
     void spawnEnemies();

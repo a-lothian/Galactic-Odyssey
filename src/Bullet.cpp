@@ -5,6 +5,7 @@
 
 Bullet::Bullet(GameManager* game, GameObject* parent, Vector2 pos, float radius, float speed, float angle, int damage, sf::Color colour)
     : CircleObject(game, pos, radius, colour), parent(parent), damage(damage) {
+    toDelete = false;
     if (game == nullptr) {
         std::cerr << "Error: GameManager is null! in bullet" << std::endl;
     }

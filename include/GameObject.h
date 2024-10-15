@@ -15,13 +15,12 @@ class GameObject {
     virtual std::string toString() const = 0;
     virtual void update(float gametime) = 0;
 
-    virtual bool isColliding(GameObject* other) = 0;
+    virtual bool isColliding(GameObject* other) const = 0;
     virtual void resolveCollision(GameObject* other) = 0;
     virtual bool isWithinBounds(int xres, int yres) = 0;
 
     GameManager* game;
     Vector2 pos;
-    bool render = true;
     Vector2 velocity;
 
     bool isPhysics;  // does this object move in reaction to any collision?

@@ -3,6 +3,8 @@
 
 BoxObject::BoxObject(GameManager* game)  // Default Debug Constructor
     : GameObject(game), width(25), height(25), shape(sf::Vector2f(width, height)), colour(sf::Color::Red) {
+    pos = {0, 0};
+    std::cout << "BoxObject | Standard constructor called" << std::endl;
 }
 
 BoxObject::BoxObject(GameManager* game, Vector2 pos, float width, float height, sf::Color colour)
@@ -36,7 +38,7 @@ void BoxObject::update(float gametime) {
     sprite.setPosition({pos.x - (width / 2), pos.y - (height / 2)});
 }
 
-bool BoxObject::isColliding(GameObject* other) {
+bool BoxObject::isColliding(GameObject* other) const {
     Vector2 offset = {pos.x - other->pos.x, pos.y - other->pos.y};
     Vector2 halfsize = {width / 2, height / 2};
 

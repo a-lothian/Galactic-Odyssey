@@ -3,7 +3,7 @@
 #include <iostream>
 
 GameObject::GameObject(GameManager* game)
-    : game(game), pos({0, 0}), render(true), velocity({0, 0}), isPhysics(true), dynamic(false), receptive(false), mass(1), shape(nullptr) {
+    : game(game), pos({0, 0}), velocity({0, 0}), isPhysics(true), dynamic(false), receptive(false), mass(1), shape(nullptr) {
 }
 
 void GameObject::initTexture(std::string filePath) {

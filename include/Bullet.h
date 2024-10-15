@@ -10,6 +10,7 @@ class Bullet : public CircleObject {
     GameObject* parent;
     int damage;
     Vector2 velocity;
+    bool toDelete;
 
     Bullet(GameManager* game, GameObject* parent, Vector2 pos, float radius, float speed, float angle, int damage, sf::Color colour);
     ~Bullet() {};

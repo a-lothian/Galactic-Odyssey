@@ -1,9 +1,11 @@
 #include "BasicEnemy.h"
 
 BasicEnemy::BasicEnemy(GameManager* game, Vector2 pos, int health, float speed, float weaponCooldown)
-    : BoxObject(game), health(health), speed(speed), pos(pos) {
+    : BoxObject(game, pos, 50, 50, sf::Color::Blue), health(health), speed(speed), pos(pos) {
     currentWeapon = new Weapon(game, this);
     currentWeapon->cooldown = weaponCooldown;
+
+    toDelete = false;
 
     initTexture("assets/enemy1.png");
     initSprite();

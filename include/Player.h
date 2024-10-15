@@ -19,7 +19,7 @@ class Player : public BoxObject {
     Weapon* currentWeapon;
     Vector2 velocity;
 
-    void update(float gametime);
+    void update(float gametime) override;
     void applyImpulse(Vector2 impulse);
 
     void shootWeapon();

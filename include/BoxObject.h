@@ -18,7 +18,7 @@ class BoxObject : public GameObject {
     std::string toString() const override;
     void update(float gametime) override;
 
-    bool isColliding(GameObject* other) override;
+    bool isColliding(GameObject* other) const override;
     void resolveCollision(GameObject* other) override;
 
     bool isWithinBounds(int xres, int yres) override;

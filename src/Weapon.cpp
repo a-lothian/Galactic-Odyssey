@@ -8,7 +8,7 @@ Weapon::Weapon(GameManager* game, GameObject* parent)
     }
 
     cooldown = 0.250;
-    bulletsPerShot = 30;
+    bulletsPerShot = 2;
     richochet = false;
 }
 

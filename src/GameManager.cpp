@@ -76,9 +76,15 @@ void GameManager::renderGame() {
     this->window.draw(this->starSprite2);
 
     for (GameObject* object : objects) {
-        if (object->render) {
-            object->drawObject();
-        }
+        // if (object->render) {
+        object->drawObject();
+        // }
+    }
+
+    // std::cout << "render bullets size: " << bullets.size() << std::endl;
+    // std::cout << "bullets address from renderer: " << &bullets << std::endl;
+    for (Bullet* bullet : bullets) {
+        bullet->drawObject();
     }
     for (BasicEnemy* enemy : enemies) {
         enemy->drawObject();
@@ -208,12 +214,12 @@ void GameManager::updateTimer(int newSeconds) {
 Bullet* GameManager::createBullet(GameObject* parent, float x, float y, float radius, float speed, float angle, int damage, sf::Color colour, bool doCollision) {
     Bullet* bullet = new Bullet(this, parent, {parent->pos.x, parent->pos.y}, radius, speed, angle, damage, colour);
 
-    objects.push_back(bullet);
     bullets.push_back(bullet);
+    // std::cout << "bullets address from single bullet creation (game manager): " << &bullets << std::endl;
 
-    if (doCollision) {
-        colliders.push_back(bullet);
-    }
+    // if (doCollision) {
+    //     colliders.push_back(bullet);
+    // }
     return bullet;
 }
 
@@ -257,21 +263,66 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
     float sub_dt = gametime / substeps;
 
     for (int s = 0; s < substeps; s++) {
-        for (u_long i = 0; i < objects.size(); i++) {
-            objects[i]->update(sub_dt);
+        // Update objects
+        for (GameObject* obj : objects) {
+            obj->update(sub_dt);
         }
-        for (u_long i = 0; i < enemies.size(); i++) {
-            enemies[i]->update(sub_dt);
+        for (Bullet* bullet : bullets) {
+            bullet->update(sub_dt);
+        }
+        for (BasicEnemy* enemy : enemies) {
+            enemy->update(sub_dt);
         }
 
-        for (u_long i = 0; i < objects.size(); i++) {
-            for (u_long j = i + 1; j < objects.size(); j++) {
-                bool isColliding = objects[i]->isColliding(objects[j]);
-                if (isColliding && objects[i]->isPhysics && objects[j]->isPhysics) {
-                    objects[i]->resolveCollision(objects[j]);
+        // Handle collisions between bullets and enemies
+        for (Bullet* check_bullet : bullets) {
+            if (check_bullet->toDelete)
+                continue;  // Skip if already marked for deletion
+
+            for (BasicEnemy* check_enemy : enemies) {
+                if (check_enemy->toDelete)
+                    continue;  // Skip if already marked for deletion
+
+                bool isBulletColliding = check_bullet->pos.distance(check_enemy->pos) < 70;
+
+                if (isBulletColliding) {
+                    // Reduce enemy health
+                    check_enemy->health -= check_bullet->damage;
+
+                    // Mark bullet for deletion
+                    check_bullet->toDelete = true;
+
+                    // Mark enemy for deletion if health is zero or less
+                    if (check_enemy->health <= 0) {
+                        check_enemy->toDelete = true;
+                    }
+
+                    break;  // Exit the enemies loop for this bullet
                 }
             }
         }
+
+        // Remove bullets marked for deletion
+        bullets.erase(std::remove_if(bullets.begin(), bullets.end(),
+                                     [](Bullet* b) {
+                                         if (b->toDelete) {
+                                             delete b;
+                                             return true;
+                                         }
+                                         return false;
+                                     }),
+                      bullets.end());
+
+        // Remove enemies marked for deletion
+        enemies.erase(std::remove_if(enemies.begin(), enemies.end(),
+                                     [](BasicEnemy* e) {
+                                         if (e->toDelete) {
+                                             delete e;
+                                             return true;
+                                         }
+                                         return false;
+                                     }),
+                      enemies.end());
     }
 }
 
@@ -280,6 +331,13 @@ void GameManager::cullOutOfBounds() {
         if (objects[i]->isWithinBounds(500, 800)) {
             delete objects[i];
             objects.erase(objects.begin() + i);
+            i--;
+        }
+    }
+    for (int i = 0; i < bullets.size(); i++) {
+        if (bullets[i]->isWithinBounds(500, 800)) {
+            delete bullets[i];
+            bullets.erase(bullets.begin() + i);
             i--;
         }
     }

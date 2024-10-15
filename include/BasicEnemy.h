@@ -13,6 +13,7 @@ class BasicEnemy : public BoxObject {
 
     int health;
     float speed;
+    bool toDelete;
 
     Weapon* currentWeapon;
     Vector2 pos;

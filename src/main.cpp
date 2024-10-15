@@ -9,10 +9,9 @@
 
 int main() {
     GameManager gameManager;
-    gameManager.loadSave(); // testing
-    gameManager.initHUD(); // testing
+    gameManager.loadSave();  // testing
+    gameManager.initHUD();   // testing
     gameManager.runGame();
-
 
     return 0;
 }

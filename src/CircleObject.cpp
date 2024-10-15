@@ -36,7 +36,8 @@ void CircleObject::update(float gametime) {
     shape.setPosition({pos.x - radius, pos.y - radius});  // technical debt here. not sure why subtraction is needed
 }
 
-bool CircleObject::isColliding(GameObject* other) {
+bool CircleObject::isColliding(GameObject* other) const {
+    // std::cout << "CircleObject | " << this << ", " << "other: " << other << std::endl;
     if (dynamic_cast<CircleObject*>(other))  // CircleObject -> CircleObject Collision
     {
         CircleObject* otherball = (CircleObject*)other;  // cast to CircleObject
@@ -55,7 +56,9 @@ bool CircleObject::isColliding(GameObject* other) {
         Vector2 otherhalfsize = Vector2(otherBox->width / 2, otherBox->height / 2);
         bool xcollide = std::abs(pos.x - otherBox->pos.x) < (this->radius + otherhalfsize.x);
         bool ycollide = std::abs(pos.y - otherBox->pos.y) < (this->radius + otherhalfsize.y);
+
         if (xcollide && ycollide) {
+            std::cout << "CircleObject | collide: " << (xcollide && ycollide) << std::endl;
             return true;
         }
     }
