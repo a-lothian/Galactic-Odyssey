@@ -230,6 +230,7 @@ Bullet* GameManager::createBullet(GameObject* parent, float x, float y, float ra
     Bullet* bullet = new Bullet(this, parent, {parent->pos.x, parent->pos.y}, radius, speed, angle, damage, colour);
 
     bullets.push_back(bullet);
+    return bullet;
 }
 
 void GameManager::saveGame() {
@@ -337,7 +338,6 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
                 if (isBulletColliding) {
                     // Reduce enemy health
                     check_enemy->health -= check_bullet->damage;
-                    std::cout << "enemy health: " << check_enemy->health << std::endl;
 
                     // Mark bullet for deletion
                     check_bullet->toDelete = true;
