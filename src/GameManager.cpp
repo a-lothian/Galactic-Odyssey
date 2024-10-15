@@ -74,9 +74,12 @@ void GameManager::toString() {
 
 void GameManager::renderGame() {
     this->window.clear();
+
+    // Draw background
     this->window.draw(this->backgroundSprite);
     this->window.draw(this->starSprite1);
     this->window.draw(this->starSprite2);
+    
 
     for (GameObject* object : objects) {
         // if (object->render) {
@@ -93,13 +96,19 @@ void GameManager::renderGame() {
         enemy->drawObject();
     }
 
+    this->window.draw(HUDrect);
     this->window.draw(score_text);
     this->window.draw(timer_text);
+    this->window.draw(healthSprite);
+    this->window.draw(bulletSprite);
+    this->window.draw(healthText);
+    this->window.draw(bulletText);
+
 
     this->window.display();
-    this->backgroundSprite.move(0, 20);
-    this->starSprite1.move(0, 20);
-    this->starSprite2.move(0, 20);
+    this->backgroundSprite.move(0, 5);
+    this->starSprite1.move(0, 5);
+    this->starSprite2.move(0, 5);
     repeatStar();
 }
 
@@ -178,6 +187,29 @@ void GameManager::initHUD() {
     score_text = createText(ui_score, 25, sf::Color::White, {30, 20});
     timer_text = createText(ui_timer, 25, sf::Color::White, {340, 20});
     updateTimer(seconds);
+
+    // Health
+    if (!healthTexture.loadFromFile("assets/health.png")) {
+        std::cerr << "Failed to load health texture." << std::endl;
+    }
+    healthSprite.setTexture(healthTexture);
+    healthSprite.setPosition(400, 700);
+    healthSprite.setColor(sf::Color(255, 153, 153));
+    healthText = createText((std::to_string(this->player->health)), 18, sf::Color::White, {440, 704});
+
+    // Bullet
+    if (!bulletTexture.loadFromFile("assets/bullet.png")) {
+        std::cerr << "Failed to load bullet texture." << std::endl;
+    }
+    bulletSprite.setTexture(bulletTexture);
+    bulletSprite.setPosition(400, 740);
+    bulletSprite.setColor(sf::Color(255, 215, 0));
+    bulletText = createText((std::to_string(this->player->currentWeapon->bulletsPerShot)), 18, sf::Color::White, {440, 744});
+
+    // HUD rectangle
+    HUDrect.setSize({100, 100});
+    HUDrect.setFillColor(sf::Color(0, 0, 0, 200));
+    HUDrect.setPosition(390, 690);
 }
 
 sf::Text GameManager::createText(std::string str, int characterSize, sf::Color fillColour, sf::Vector2f position) {

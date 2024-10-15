@@ -72,12 +72,22 @@ class GameManager {
     void saveGame();
     void loadSave();
 
-    //  User interface
+    //  HUD Elements
     sf::Text score_text;
     sf::Text timer_text;
     sf::Font roboto;
     int seconds;
     sf::Clock timer;
+
+    sf::Texture healthTexture;
+    sf::Sprite healthSprite;
+    sf::Text healthText;
+
+    sf::Texture bulletTexture;
+    sf::Sprite bulletSprite;
+    sf::Text bulletText;
+
+    sf::RectangleShape HUDrect;
 
     // Barriers
     GameObject* barrierL;
@@ -85,6 +95,8 @@ class GameManager {
     GameObject* barrierB;
     GameObject* barrierT;
 
+
+    // Background
     sf::Texture backgroundTexture;  // Background texture
     sf::Sprite backgroundSprite;    // Background sprite
     sf::Texture starTexture;        // Star texture
