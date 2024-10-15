@@ -31,9 +31,8 @@ void EnemyManager::spawnEnemies() {
 
             int health = baseHealth + static_cast<int>(difficultyFactor * 1.5f) + rand() % 4;
             float speed = baseSpeed + difficultyFactor * 0.4f + static_cast<float>(rand()) / RAND_MAX * 2.0f;
-            float weaponCooldown = 1 / difficultyFactor + static_cast<float>(rand()) / RAND_MAX * 0.5f;
 
-            game->createBasicEnemy_Single(spawnX, spawnY, health, speed, weaponCooldown);
+            game->createBasicEnemy_Single(spawnX, spawnY, health, speed, 1);
         }
     }
 }
