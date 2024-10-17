@@ -174,6 +174,7 @@ void GameManager::runGame() {
         renderGame();
 
         if (player->health < 1) {
+            saveGame();
             window.close();
 
             std::cout << "You died! Your Score Was: " << score << "!" << std::endl;
@@ -337,11 +338,11 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
                 }
             }
         }
-
+        // check powerup collisions
         for (u_long i = 0; i < powerups.size(); i++) {
             bool isColliding = powerups[i]->pos.distance(player->pos) < 70;
             if (isColliding) {
-                switch (powerups[i]->power) {
+                switch (powerups[i]->power) {  // determine powerup type
                 case Powerup::powerupType::ADDBULLET: {
                     player->currentWeapon->bulletsPerShot += 1;
                     bulletText.setString((std::to_string(player->currentWeapon->bulletsPerShot)));
@@ -362,6 +363,7 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
             }
         }
 
+        // kill offscreen enemies
         for (u_long i = 0; i < enemies.size(); i++) {
             if (enemies[i]->pos.y > 810) {
                 player->health -= 1;
@@ -385,7 +387,6 @@ void GameManager::HandleCollisions(float gametime, int substeps) {
                     // Reduce enemy health
                     check_enemy->health -= check_bullet->damage;
 
-                    // Mark bullet for deletion
                     check_bullet->toDelete = true;
 
                     // Mark enemy for deletion if health is zero or less
