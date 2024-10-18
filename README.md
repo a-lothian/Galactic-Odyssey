@@ -32,7 +32,7 @@ Galactic Odyssey is a 2D scrolling spaceship game built using SFML and C++. In t
 
 ## License
 
-This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. You may not use the material for commercial purposes. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. You may not use the material for commercial purposes. See the [LICENSE](LICENSE.md) file for details.
 
 
 ## Contributions
