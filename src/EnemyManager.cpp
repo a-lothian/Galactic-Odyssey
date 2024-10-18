@@ -29,7 +29,7 @@ void EnemyManager::spawnEnemies() {
             float spawnX = lanePositions[i];
             float spawnY = 0.0f;
 
-            int health = baseHealth + static_cast<int>(difficultyFactor * 1.5f) + rand() % 4;
+            int health = baseHealth + static_cast<int>(difficultyFactor * 2.5f) + rand() % 4;
             float speed = baseSpeed + difficultyFactor * 0.4f + static_cast<float>(rand()) / RAND_MAX * 2.0f;
 
             game->createBasicEnemy_Single(spawnX, spawnY, health, speed, 1);
