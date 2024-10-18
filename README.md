@@ -2,7 +2,7 @@
 
 Galactic Odyssey is a 2D scrolling spaceship game built using SFML and C++. In this game, you control a spaceship, dodge obstacles, and shoot enemies as you progress through space. The game features dynamic shooting mechanics, smooth input handling, and engaging gameplay.
 
-![Galactic Odyssey Gameplay](assets/game.png)
+<img src="assets/game.png" alt="Galactic Odyssey Gameplay" width="500"/>
 
 
 ## Installation
